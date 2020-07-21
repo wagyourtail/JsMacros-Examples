@@ -25,8 +25,6 @@ function createOutdatedScreen(currentVersion, newVersion, url) {
 	hud.openScreen(screen);
 }
 
-chat.log("version check start");
-
 while (hud.getOpenScreen() != null) time.sleep(100); //sleeps java thread running this script for 100ms
 
 const FabricLoader = Java.type("net.fabricmc.loader.api.FabricLoader");
@@ -42,7 +40,6 @@ if (beta) {
 	let run = workflow_runs.shift()
 	while (run && run.head_branch != branch) run = workflow_runs.shift();
 	if (run.head_sha.slice(0, 7) != sha) {
-		chat.log("old");
 		newVer = JSON.parse(request.get(run.artifacts_url).text()).artifacts[0]?.name.split("-").slice(2).join("-");
 		if (newVer)
 			createOutdatedScreen(`${version}-${beta}${sha ? `-${sha}` : ""}`, newVer, run.html_url);
@@ -53,5 +50,3 @@ if (beta) {
 		createOutdatedScreen(version, gitVer.tag_name, "https://github.com/wagyourtail/JsMacros/releases/latest");
 	}
 }
-
-chat.log("version check complete");
