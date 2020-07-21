@@ -43,8 +43,9 @@ if (beta) {
 	while (run && run.head_branch != branch) run = workflow_runs.shift();
 	if (run.head_sha.slice(0, 7) != sha) {
 		chat.log("old");
-		newVer = JSON.parse(request.get(run.artifacts_url).text()).artifacts[0].name.split("-").slice(2).join("-");
-		createOutdatedScreen(`${version}-${beta}${sha ? `-${sha}` : ""}`, newVer, run.html_url);
+		newVer = JSON.parse(request.get(run.artifacts_url).text()).artifacts[0]?.name.split("-").slice(2).join("-");
+		if (newVer)
+			createOutdatedScreen(`${version}-${beta}${sha ? `-${sha}` : ""}`, newVer, run.html_url);
 	}
 } else {
 	gitVer = JSON.parse(request.get(`https://api.github.com/repos/wagyourtail/JsMacros/releases/latest`).text());
