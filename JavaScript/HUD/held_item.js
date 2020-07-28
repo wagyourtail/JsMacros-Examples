@@ -24,3 +24,4 @@ function getCount(itemStack) {
 const count = getCount(item);
 globalvars.getObject(`wagyourhud.${offhand ? "off" : "main"}`).setItem(item.copy().setDamage(0)).setOverlayText(count);
 
+chat.log(item.getDefaultName())
