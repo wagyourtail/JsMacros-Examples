@@ -20,8 +20,6 @@ function getCount(itemStack) {
 	}
 	return count.toString();
 }
-
-const count = getCount(item);
-globalvars.getObject(`wagyourhud.${offhand ? "off" : "main"}`).setItem(item.copy().setDamage(0)).setOverlayText(count);
-
-chat.log(item.getDefaultName())
+let count = "";
+if (item) count = getCount(item);
+globalvars.getObject(`wagyourhud.${offhand ? "off" : "main"}`).setItem(item ? item.copy().setDamage(0) : null).setOverlayText(count);

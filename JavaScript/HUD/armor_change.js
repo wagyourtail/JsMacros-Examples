@@ -20,7 +20,7 @@ function getCount(itemStack) {
 	}
 	return count.toString();
 }
-
-const count = getCount(item);
-globalvars.getObject(`wagyourhud.${slot}`).setItem(item.copy().setDamage(0)).setOverlayText(count);
+let count = ""
+if (item) count = getCount(item);
+globalvars.getObject(`wagyourhud.${slot}`).setItem(item ? item.copy().setDamage(0) : null).setOverlayText(count);
 
