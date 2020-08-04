@@ -1,6 +1,6 @@
 const d2d = globalvars.getObject("wagyourhud");
 if (!d2d && !globalvars.getBoolean("wagyourhud.loading")) load("./init.js");
-	
+
 const item = args.get("item");
 const offhand = args.get("offhand");
 

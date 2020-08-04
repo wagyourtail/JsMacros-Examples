@@ -1,13 +1,16 @@
+#JEP 1.0.2 for JsMacros 1.2.3
+
 minecraft = jsmacros.getMinecraft()
-#networkProxy = hasattr(minecraft.getClass(), "getNetworkProxy") and minecraft.getNetworkProxy() or minecraft.method_1487()
-networkProxy = (minecraft.getNetworkProxy or minecraft.method_1487)()
+networkProxy = hasattr(minecraft.getClass(), "getNetworkProxy") and minecraft.getNetworkProxy() or minecraft.method_1487()
+
 import sys
 
 if not hud.getOpenScreen():
 
     from java.lang import Class
-    from java.lang import NoSuchFieldException
     from java.util import UUID
+    from java.util.function import Consumer, BiConsumer
+
     try:
         from net.minecraft.client.util import Session
     except ImportError:
@@ -20,10 +23,10 @@ if not hud.getOpenScreen():
     #from com.mojang.util import UUIDTypeAdapter
     UUIDTypeAdapter = Class.forName("com.mojang.util.UUIDTypeAdapter")
 
-    MCAgent = Agent.getField("MINECRAFT").get(None)
+    MCAgent = Agent.MINECRAFT
 
     uuid = UUID.randomUUID().toString()
-    yas = YggAuthService.getConstructor(networkProxy.getClass(), Class.forName("java.lang.String")).newInstance(networkProxy, uuid)
+    yas = YggAuthService(networkProxy, uuid)
     yua = yas.createUserAuthentication(MCAgent)
     minecraftSessionService = yas.createMinecraftSessionService()
 
@@ -33,8 +36,7 @@ if not hud.getOpenScreen():
     loginScreen = hud.createScreen("Login", False)
 
     def setSession(s):
-        
-        sessionField = reflection.getDeclaredField(minecraft.getClass(), "session", "field_1726");
+        sessionField = reflection.getDeclaredField(minecraft.getClass(), "session", "field_1726")
 
         sessionField.setAccessible(True)
         sessionField.set(minecraft, s)
@@ -45,7 +47,7 @@ if not hud.getOpenScreen():
         yua.setPassword(password)
         password = None
         yua.logIn()
-        login = UUIDTypeAdapter.getDeclaredMethod("fromUUID", yua.getSelectedProfile().getId().getClass()).invoke(None, yua.getSelectedProfile().getId())
+        login = reflection.getDeclaredMethod(UUIDTypeAdapter, "fromUUID", yua.getSelectedProfile().getId().getClass()).invoke(None, yua.getSelectedProfile().getId())
 
         session = Session(yua.getSelectedProfile().getName(), login, yua.getAuthenticatedToken(), yua.getUserType().getName())
 
@@ -66,14 +68,15 @@ if not hud.getOpenScreen():
     def initScreen(screen):
         w = screen.getWidth()
         h = screen.getHeight()
-        textX = w / 6
-        uname = screen.addText("Login:", textX, h / 4, 0xFFFFFF, True)
-        pword = screen.addText("Password:", textX, h / 4 + 25, 0xFFFFFF, True)
+        textX = int(w / 6)
+        uname = screen.addText("Login:", textX, int(h / 4), 0xFFFFFF, True)
+        pword = screen.addText("Password:", textX, int(h / 4) + 25, 0xFFFFFF, True)
         inputX = textX + pword.getWidth() + 15
-        screen.addTextInput(inputX, h / 4 - 5, 200, 19, "", consumer.toBiConsumer(setU))
-        screen.addTextInput(inputX, h / 4 + 20, 200, 19, "", consumer.toBiConsumer(setP))
-        screen.addButton(inputX + 50, h / 4 + 50, 100, 20, "login", consumer.toBiConsumer(onSubmit))
+        screen.addTextInput(inputX, int(h / 4) - 5, 200, 19, "", consumer.toBiConsumer(setU))
+        screen.addTextInput(inputX, int(h / 4) + 20, 200, 19, "", consumer.toBiConsumer(setP))
+        screen.addButton(inputX + 50, int(h / 4) + 50, 100, 20, "login", consumer.toBiConsumer(onSubmit))
 
     loginScreen.onInit = consumer.toConsumer(initScreen)
+    loginScreen.onClose = consumer.toConsumer(lambda s: consumer.stop())
 
     hud.openScreen(loginScreen)

@@ -1,0 +1,1 @@
+jsmacros.getProfile().loadOrCreateProfile("default2");

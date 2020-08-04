@@ -30,13 +30,28 @@ function loginOnline(user, pass) {
 	chat.log("logged in as: " + yua.getSelectedProfile().getName());
 }
 
-const message = args.get("message").match(/^!login ([^\s]+) (.+)/);
-
-if (args.get("message").startsWith("!login")) {
+if (args.get("message")?.startsWith("!login")) {
+	const message = args.get("message").match(/^!login ([^\s]+) (.+)/);
 	try {
 		loginOnline(message[1], message[2]);
 	} catch (e) {
-		chat.log(e.toString());
+		chat.log(e);
 	}
+	args.put("message", null);
+}
+
+if (args.get("message")?.startsWith("!connect")) {
+	const message = args.get("message").match(/^!connect (.+)/);
+	const d2d = hud.createDraw2D();
+	d2d.onInit = () => {
+		chat.log(args);
+		try {
+			jsmacros.disconnect();
+			//jsmacros.connect(message[1]);
+		} catch (e) {
+			chat.log(e);
+		}
+	};
+	hud.registerDraw2D(d2d)
 	args.put("message", null);
 }
