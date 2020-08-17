@@ -1,0 +1,2 @@
+chat.log(args.get("message").toJson())
+args.get("message").replaceFromJson('[{"color": "white", "text": "<wagyourtail> "}, {"color": "gray", "text": "de: "}, {"color": "green", "text": "xd"}, {"color": "white", "text": " ? "}, {"color": "aqua", "text": "Xd"}]')

@@ -3,7 +3,7 @@
 
 function createOutdatedScreen(currentVersion, newVersion, url) {
 	screen = hud.createScreen("JsMacros Version Outdated", false);
-	screen.onInit = (scr) => {
+	screen.onInit = consumer.toConsumer((scr) => {
 		const w = scr.getWidth();
 		const h = scr.getHeight();
 		const t1 = scr.addText(`Current Version:`, 100, 100, 0xFFFFFF, true)
@@ -12,15 +12,15 @@ function createOutdatedScreen(currentVersion, newVersion, url) {
 		t2.setPos(Math.floor(w / 2 - (t1.getWidth() + 5)), Math.floor(h / 3 + 5))
 		scr.addText(currentVersion, Math.floor(w / 2 + 20), Math.floor(h / 3 - 5), 0xFFFFFF, true)
 		scr.addText(newVersion, Math.floor(w / 2 + 20), Math.floor(h / 3 + 5), 0xFFFFFF, true)
-		scr.addButton(Math.floor(w / 2 + 10), Math.floor(h / 2 + 20), 100, 20, "close", () => {
+		scr.addButton(Math.floor(w / 2 + 10), Math.floor(h / 2 + 20), 100, 20, "close", consumer.toBiConsumer(() => {
 			hud.openScreen(null);
-		});
-		scr.addButton(Math.floor(w / 2 - 110), Math.floor(h / 2 + 20), 100, 20, "download", () => {
+		}));
+		scr.addButton(Math.floor(w / 2 - 110), Math.floor(h / 2 + 20), 100, 20, "download", consumer.toBiConsumer(() => {
 			jsmacros.open(url);
-		});
-	}
+		}));
+	})
 	
-	screen.catchInit = (e) => {chat.log(e)};
+	screen.catchInit = consumer.toConsumer((e) => {chat.log(e)});
 	
 	hud.openScreen(screen);
 }

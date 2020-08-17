@@ -1,6 +1,6 @@
 minecraft = jsmacros.getMinecraft()
 #networkProxy = hasattr(minecraft.getClass(), "getNetworkProxy") and minecraft.getNetworkProxy() or minecraft.method_1487()
-networkProxy = (minecraft.getNetworkProxy or minecraft.method_1487)()
+networkProxy = hasattr(minecraft.getClass(), "getNetworkProxy") and minecraft.getNetworkProxy() or minecraft.method_1487()
 import sys
 
 if not hud.getOpenScreen():

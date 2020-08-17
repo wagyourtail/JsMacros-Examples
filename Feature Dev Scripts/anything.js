@@ -1,1 +1,1 @@
-chat.log(args)
+chat.log(`${event}:${args}`)
