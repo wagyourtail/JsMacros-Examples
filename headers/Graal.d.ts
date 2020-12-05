@@ -69,6 +69,7 @@ declare namespace Java {
         new(...value: any): T;
     }
     export interface Object {}
+    export interface Interface {}
 
     /**
      * I know this one isn't really a class in java, but please use it as a wrapper for java arrays, 

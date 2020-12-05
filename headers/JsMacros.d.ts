@@ -6,6 +6,13 @@ declare namespace Events {
 		getEventName(): string;
 	}
 
+	export interface ProfileLoad extends BaseEvent {		
+		readonly profileName: string
+		
+		toString():string;
+		
+	}
+
 	
 	/**
 	 * Custom Events
@@ -91,8 +98,161 @@ declare namespace Events {
 		
 	}
 
-	export interface ProfileLoad extends BaseEvent {		
-		readonly profileName: string
+	export interface PlayerLeave extends BaseEvent {		
+		readonly UUID: string
+		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerListEntryHelper
+		
+		toString():string;
+		
+	}
+
+	export interface Death extends BaseEvent {		
+		
+		toString():string;
+		
+	}
+
+	export interface Damage extends BaseEvent {		
+		readonly attacker: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper
+		readonly source: string
+		readonly health: number
+		readonly change: number
+		
+		toString():string;
+		
+	}
+
+	export interface ItemDamage extends BaseEvent {		
+		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
+		readonly damage: number
+		
+		toString():string;
+		
+	}
+
+	export interface AirChange extends BaseEvent {		
+		readonly air: number
+		
+		toString():string;
+		
+	}
+
+	export interface RecvMessage extends BaseEvent {		
+		text: Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper
+		
+		toString():string;
+		
+	}
+
+	export interface Disconnect extends BaseEvent {		
+		
+		toString():string;
+		
+	}
+
+	export interface ArmorChange extends BaseEvent {		
+		readonly slot: string
+		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
+		readonly oldItem: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
+		
+		toString():string;
+		
+	}
+
+	export interface OpenScreen extends BaseEvent {		
+		readonly screen: Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen
+		readonly screenName: string
+		
+		toString():string;
+		
+	}
+
+	export interface JoinServer extends BaseEvent {		
+		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper
+		readonly address: string
+		
+		toString():string;
+		
+	}
+
+	export interface EXPChange extends BaseEvent {		
+		readonly progress: number
+		readonly total: number
+		readonly level: number
+		
+		toString():string;
+		
+	}
+
+	export interface ChunkUnload extends BaseEvent {		
+		readonly x: number
+		readonly z: number
+		
+		toString():string;
+		
+	}
+
+	export interface HeldItemChange extends BaseEvent {		
+		readonly offHand: boolean
+		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
+		readonly oldItem: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
+		
+		toString():string;
+		
+	}
+
+	export interface SignEdit extends BaseEvent {		
+		readonly pos: Java.xyz.wagyourtail.jsmacros.client.api.sharedclasses.PositionCommon.Pos3D
+		closeScreen: boolean
+		signText: Java.java.util.List<string>
+		
+		toString():string;
+		
+	}
+
+	export interface PlayerJoin extends BaseEvent {		
+		readonly UUID: string
+		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerListEntryHelper
+		
+		toString():string;
+		
+	}
+
+	export interface Tick extends BaseEvent {		
+		
+		toString():string;
+		
+	}
+
+	export interface BlockUpdate extends BaseEvent {		
+		readonly block: Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper
+		readonly updateType: string
+		
+		toString():string;
+		
+	}
+
+	export interface HungerChange extends BaseEvent {		
+		readonly foodLevel: number
+		
+		toString():string;
+		
+	}
+
+	export interface ChunkLoad extends BaseEvent {		
+		readonly x: number
+		readonly z: number
+		readonly isFull: boolean
+		
+		toString():string;
+		
+	}
+
+	export interface Sound extends BaseEvent {		
+		readonly sound: string
+		readonly volume: number
+		readonly pitch: number
+		readonly position: Java.xyz.wagyourtail.jsmacros.client.api.sharedclasses.PositionCommon.Pos3D
 		
 		toString():string;
 		
@@ -121,32 +281,6 @@ declare namespace Events {
 		
 	}
 
-	export interface Tick extends BaseEvent {		
-		
-		toString():string;
-		
-	}
-
-	export interface Death extends BaseEvent {		
-		
-		toString():string;
-		
-	}
-
-	export interface Disconnect extends BaseEvent {		
-		
-		toString():string;
-		
-	}
-
-	export interface ItemDamage extends BaseEvent {		
-		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
-		readonly damage: number
-		
-		toString():string;
-		
-	}
-
 	export interface ItemPickup extends BaseEvent {		
 		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
 		
@@ -154,70 +288,8 @@ declare namespace Events {
 		
 	}
 
-	export interface JoinServer extends BaseEvent {		
-		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper
-		readonly address: string
-		
-		toString():string;
-		
-	}
-
-	export interface OpenScreen extends BaseEvent {		
-		readonly screen: Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen
-		readonly screenName: string
-		
-		toString():string;
-		
-	}
-
-	export interface PlayerJoin extends BaseEvent {		
-		readonly UUID: string
-		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerListEntryHelper
-		
-		toString():string;
-		
-	}
-
-	export interface ArmorChange extends BaseEvent {		
-		readonly slot: string
-		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
-		readonly oldItem: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
-		
-		toString():string;
-		
-	}
-
-	export interface BlockUpdate extends BaseEvent {		
-		readonly block: Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper
-		readonly updateType: string
-		
-		toString():string;
-		
-	}
-
-	export interface Sound extends BaseEvent {		
-		readonly sound: string
-		readonly volume: number
-		readonly pitch: number
-		readonly position: Java.xyz.wagyourtail.jsmacros.client.api.sharedclasses.PositionCommon.Pos3D
-		
-		toString():string;
-		
-	}
-
-	export interface Title extends BaseEvent {		
-		readonly type: string
-		readonly message: Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper
-		
-		toString():string;
-		
-	}
-
-	export interface Damage extends BaseEvent {		
-		readonly attacker: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper
-		readonly source: string
-		readonly health: number
-		readonly change: number
+	export interface DimensionChange extends BaseEvent {		
+		readonly dimension: string
 		
 		toString():string;
 		
@@ -232,58 +304,9 @@ declare namespace Events {
 		
 	}
 
-	export interface SignEdit extends BaseEvent {		
-		readonly pos: Java.xyz.wagyourtail.jsmacros.client.api.sharedclasses.PositionCommon.Pos3D
-		closeScreen: boolean
-		signText: Java.java.util.List<string>
-		
-		toString():string;
-		
-	}
-
-	export interface AirChange extends BaseEvent {		
-		readonly air: number
-		
-		toString():string;
-		
-	}
-
-	export interface ChunkLoad extends BaseEvent {		
-		readonly x: number
-		readonly z: number
-		readonly isFull: boolean
-		
-		toString():string;
-		
-	}
-
-	export interface EXPChange extends BaseEvent {		
-		readonly progress: number
-		readonly total: number
-		readonly level: number
-		
-		toString():string;
-		
-	}
-
-	export interface ChunkUnload extends BaseEvent {		
-		readonly x: number
-		readonly z: number
-		
-		toString():string;
-		
-	}
-
-	export interface PlayerLeave extends BaseEvent {		
-		readonly UUID: string
-		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerListEntryHelper
-		
-		toString():string;
-		
-	}
-
-	export interface RecvMessage extends BaseEvent {		
-		text: Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper
+	export interface Title extends BaseEvent {		
+		readonly type: string
+		readonly message: Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper
 		
 		toString():string;
 		
@@ -295,93 +318,93 @@ declare namespace Events {
 		toString():string;
 		
 	}
-
-	export interface HungerChange extends BaseEvent {		
-		readonly foodLevel: number
-		
-		toString():string;
-		
-	}
-
-	export interface HeldItemChange extends BaseEvent {		
-		readonly offHand: boolean
-		readonly item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
-		readonly oldItem: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper
-		
-		toString():string;
-		
-	}
-
-	export interface DimensionChange extends BaseEvent {		
-		readonly dimension: string
-		
-		toString():string;
-		
-	}
 }
 
 
 /**
- * Better File-System functions.
+ * Functions that interact directly with JsMacros or Events.
  * 
- * An instance of this class is passed to scripts as the `fs` variable.
+ * An instance of this class is passed to scripts as the `jsmacros` variable.
  */
-declare namespace fs {
+declare namespace jsmacros {
+	export function getProfile():Java.xyz.wagyourtail.jsmacros.core.config.BaseProfile;
+	export function getConfig():Java.xyz.wagyourtail.jsmacros.core.config.ConfigManager;
+	export function getRunningThreads():Java.java.util.Map<Java.xyz.wagyourtail.jsmacros.core.config.ScriptTrigger, Java.java.util.List<Java.xyz.wagyourtail.jsmacros.core.config.ScriptThreadWrapper>>;
 	
 	/**
-	 * List files in path.
+	 * Run a script with optional callback of error.Runs a string as a script.
 	 */
-	export function list(path: string):Java.Array<string>;
+	export function runScript(language: string, script?: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.Throwable, any, any> | string, callback?: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<string, any, any>):Java.Thread;
 	
 	/**
-	 * Check if a file exists.
+	 * Opens a file with the default system program.
 	 */
-	export function exists(path: string):boolean;
+	export function open(path: string):void;
 	
 	/**
-	 * Check if a file is a directory.
+	 * Creates a listener for an event, this function can be more efficient that running a script file when used properly.
 	 */
-	export function isDir(path: string):boolean;
+	export function on(event: string, callback: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Events.BaseEvent, any, any>):Java.xyz.wagyourtail.jsmacros.core.event.IEventListener;
 	
 	/**
-	 * Get the last part (name) of a file.
+	 * Creates a single-run listener for an event, this function can be more efficient that running a script file when used properly.
 	 */
-	export function getName(path: string):string;
+	export function once(event: string, callback: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Events.BaseEvent, any, any>):Java.xyz.wagyourtail.jsmacros.core.event.IEventListener;
 	
 	/**
-	 * Make a directory.
+	 * Removes a IEventListener from an event.
 	 */
-	export function makeDir(path: string):boolean;
+	export function off(event: Java.xyz.wagyourtail.jsmacros.core.event.IEventListener | string, listener?: Java.xyz.wagyourtail.jsmacros.core.event.IEventListener):boolean;
+	export function listeners(event: string):Java.java.util.List<Java.xyz.wagyourtail.jsmacros.core.event.IEventListener>;
 	
 	/**
-	 * Move a file.
+	 * create a custom event object that can trigger a event. It's recommended to use 
+	 * `jsMacros.getProfile().getRegistry().addEvent(eventName)` to set up the event to be visible in the GUI first.
 	 */
-	export function move(from: string, to: string):void;
+	export function createCustomEvent(eventName: string):Events.Custom;
+	
+}
+
+
+/**
+ * Functions for getting and using raw java classes, methods and functions.
+ *
+ * An instance of this class is passed to scripts as the `reflection` variable.
+ */
+declare namespace reflection {
 	
 	/**
-	 * Copy a file.
+	 * Use this to specify a class with intermediary and yarn names of classes for cleaner code. also has support for
+	 * java primitives by using their name in lower case.
 	 */
-	export function copy(from: string, to: string):void;
+	export function getClass(name: string, name2?: string):Java.Class<any>;
 	
 	/**
-	 * Delete a file.
+	 * Use this to specify a method with intermediary and yarn names of classes for cleaner code.
 	 */
-	export function unlink(path: string):boolean;
+	export function getDeclaredMethod(c: Java.Class<any>, name: string, name2: Java.Class<any> | string, parameterTypes?: Java.Class<any>):Java.reflect.Method;
 	
 	/**
-	 * Combine 2 paths.
+	 * Use this to specify a field with intermediary and yarn names of classes for cleaner code.
 	 */
-	export function combine(patha: string, pathb: string):string;
+	export function getDeclaredField(c: Java.Class<any>, name: string, name2?: string):Java.reflect.Field;
 	
 	/**
-	 * Gets the directory part of a file path, or the parent directory of a folder.
+	 * Invoke a method on an object with auto type coercion for numbers.
 	 */
-	export function getDir(path: string):string;
+	export function invokeMethod(m: Java.reflect.Method, c: any, objects: Java.Array<any>):any;
 	
 	/**
-	 * Open a FileHandler for the file at the specified path.
+	 * Attempts to create a new instance of a class. You probably don't have to use this one and can just call `new` on a Class unless you're in LUA, but then you also have the (kinda poorly
+	 * doccumented, can someone find a better docs link for me)
+	 * <a href= "http://luaj.sourceforge.net/api/3.2/org/luaj/vm2/lib/jse/LuajavaLib.html">LuaJava Library</a>.
 	 */
-	export function open(path: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.FileHandler;
+	export function newInstance<T>(c: Java.Class<T>, objects: Java.Array<any>):T;
+	
+	/**
+	 * Loads a jar file to be accessible with this library.
+	 */
+	export function loadJarFile(file: string):boolean;
 	
 }
 
@@ -475,51 +498,6 @@ declare namespace consumer {
 
 
 /**
- * Functions that interact directly with JsMacros or Events.
- * 
- * An instance of this class is passed to scripts as the `jsmacros` variable.
- */
-declare namespace jsmacros {
-	export function getProfile():Java.xyz.wagyourtail.jsmacros.core.config.BaseProfile;
-	export function getConfig():Java.xyz.wagyourtail.jsmacros.core.config.ConfigManager;
-	export function getRunningThreads():Java.java.util.Map<Java.xyz.wagyourtail.jsmacros.core.config.ScriptTrigger, Java.java.util.List<Java.xyz.wagyourtail.jsmacros.core.config.ScriptThreadWrapper>>;
-	
-	/**
-	 * Run a script with optional callback of error.Runs a string as a script.
-	 */
-	export function runScript(language: string, script?: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.Throwable, any, any> | string, callback?: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<string, any, any>):Java.Thread;
-	
-	/**
-	 * Opens a file with the default system program.
-	 */
-	export function open(path: string):void;
-	
-	/**
-	 * Creates a listener for an event, this function can be more efficient that running a script file when used properly.
-	 */
-	export function on(event: string, callback: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Events.BaseEvent, any, any>):Java.xyz.wagyourtail.jsmacros.core.event.IEventListener;
-	
-	/**
-	 * Creates a single-run listener for an event, this function can be more efficient that running a script file when used properly.
-	 */
-	export function once(event: string, callback: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Events.BaseEvent, any, any>):Java.xyz.wagyourtail.jsmacros.core.event.IEventListener;
-	
-	/**
-	 * Removes a IEventListener from an event.
-	 */
-	export function off(event: Java.xyz.wagyourtail.jsmacros.core.event.IEventListener | string, listener?: Java.xyz.wagyourtail.jsmacros.core.event.IEventListener):boolean;
-	export function listeners(event: string):Java.java.util.List<Java.xyz.wagyourtail.jsmacros.core.event.IEventListener>;
-	
-	/**
-	 * create a custom event object that can trigger a event. It's recommended to use 
-	 * `jsMacros.getProfile().getRegistry().addEvent(eventName)` to set up the event to be visible in the GUI first.
-	 */
-	export function createCustomEvent(eventName: string):Events.Custom;
-	
-}
-
-
-/**
  * "Global" variables for passing to other contexts.
  * 
  * An instance of this class is passed to scripts as the `globalvars` variable.
@@ -601,44 +579,66 @@ declare namespace globalvars {
 
 
 /**
- * Functions for getting and using raw java classes, methods and functions.
- *
- * An instance of this class is passed to scripts as the `reflection` variable.
+ * Better File-System functions.
+ * 
+ * An instance of this class is passed to scripts as the `fs` variable.
  */
-declare namespace reflection {
+declare namespace fs {
 	
 	/**
-	 * Use this to specify a class with intermediary and yarn names of classes for cleaner code. also has support for
-	 * java primitives by using their name in lower case.
+	 * List files in path.
 	 */
-	export function getClass(name: string, name2?: string):Java.Class<any>;
+	export function list(path: string):Java.Array<string>;
 	
 	/**
-	 * Use this to specify a method with intermediary and yarn names of classes for cleaner code.
+	 * Check if a file exists.
 	 */
-	export function getDeclaredMethod(c: Java.Class<any>, name: string, name2: Java.Class<any> | string, parameterTypes?: Java.Class<any>):Java.reflect.Method;
+	export function exists(path: string):boolean;
 	
 	/**
-	 * Use this to specify a field with intermediary and yarn names of classes for cleaner code.
+	 * Check if a file is a directory.
 	 */
-	export function getDeclaredField(c: Java.Class<any>, name: string, name2?: string):Java.reflect.Field;
+	export function isDir(path: string):boolean;
 	
 	/**
-	 * Invoke a method on an object with auto type coercion for numbers.
+	 * Get the last part (name) of a file.
 	 */
-	export function invokeMethod(m: Java.reflect.Method, c: any, objects: Java.Array<any>):any;
+	export function getName(path: string):string;
 	
 	/**
-	 * Attempts to create a new instance of a class. You probably don't have to use this one and can just call `new` on a Class unless you're in LUA, but then you also have the (kinda poorly
-	 * doccumented, can someone find a better docs link for me)
-	 * <a href= "http://luaj.sourceforge.net/api/3.2/org/luaj/vm2/lib/jse/LuajavaLib.html">LuaJava Library</a>.
+	 * Make a directory.
 	 */
-	export function newInstance<T>(c: Java.Class<T>, objects: Java.Array<any>):T;
+	export function makeDir(path: string):boolean;
 	
 	/**
-	 * Loads a jar file to be accessible with this library.
+	 * Move a file.
 	 */
-	export function loadJarFile(file: string):boolean;
+	export function move(from: string, to: string):void;
+	
+	/**
+	 * Copy a file.
+	 */
+	export function copy(from: string, to: string):void;
+	
+	/**
+	 * Delete a file.
+	 */
+	export function unlink(path: string):boolean;
+	
+	/**
+	 * Combine 2 paths.
+	 */
+	export function combine(patha: string, pathb: string):string;
+	
+	/**
+	 * Gets the directory part of a file path, or the parent directory of a folder.
+	 */
+	export function getDir(path: string):string;
+	
+	/**
+	 * Open a FileHandler for the file at the specified path.
+	 */
+	export function open(path: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.FileHandler;
 	
 }
 
@@ -675,67 +675,6 @@ declare namespace hud {
 
 
 /**
- * Functions for interacting with chat.
- * 
- * An instance of this class is passed to scripts as the `chat` variable.
- */
-declare namespace chat {
-	
-	/**
-	 * Log to player chat.
-	 */
-	export function log(message: any):void;
-	
-	/**
-	 * Say to server as player.
-	 */
-	export function say(message: string):void;
-	
-	/**
-	 * Display a Title to the player.
-	 */
-	export function title(title: any, subtitle: any, fadeIn: number, remain: number, fadeOut: number):void;
-	
-	/**
-	 * Display the smaller title that's above the actionbar.
-	 */
-	export function actionbar(text: any, tinted: boolean):void;
-	
-	/**
-	 * Display a toast.
-	 */
-	export function toast(title: any, desc: any):void;
-	
-	/**
-	 * Creates a TextHelper for use where you need one and not a string.
-	 */
-	export function createTextHelperFromString(content: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-	
-	/**
-	 * Create a  TextHelper for use where you need one and not a string.
-	 */
-	export function createTextHelperFromJSON(json: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-	
-}
-
-
-/**
- * Functions for getting and using raw java classes, methods and functions.
- * 
- * An instance of this class is passed to scripts as the `time` variable.
- */
-declare namespace time {
-	export function time():number;
-	
-	/**
-	 * Sleeps the current thread for the specified time in MS.
-	 */
-	export function sleep(millis: number):void;
-	
-}
-
-
-/**
  * Functions for getting and using world data.
  * 
  * An instance of this class is passed to scripts as the `world` variable.
@@ -744,6 +683,7 @@ declare namespace world {
 	export function getLoadedPlayers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper>;
 	export function getPlayers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerListEntryHelper>;
 	export function getBlock(x: number, y: number, z: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper;
+	export function getScoreboards():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardsHelper;
 	export function getEntities():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper>;
 	export function getDimension():string;
 	export function getBiome():string;
@@ -813,28 +753,62 @@ declare namespace client {
 
 
 /**
- * Functions for getting and modifying the player's state.
+ * Functions for interacting with chat.
  * 
- * An instance of this class is passed to scripts as the `player` variable.
+ * An instance of this class is passed to scripts as the `chat` variable.
  */
-declare namespace player {
-	export function openInventory():Java.xyz.wagyourtail.jsmacros.client.api.classes.Inventory;
-	export function getPlayer():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper;
-	export function getGameMode():string;
-	export function rayTraceBlock(distance: number, fluid: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper;
-	export function rayTraceEntity():Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
+declare namespace chat {
 	
 	/**
-	 * Write to a sign screen if a sign screen is currently open.
+	 * Log to player chat.
 	 */
-	export function writeSign(l1: string, l2: string, l3: string, l4: string):boolean;
+	export function log(message: any):void;
 	
 	/**
-	 * Take a screenshot and save to a file.
-	 *
-	 * `file` is the optional one, typescript doesn't like it not being the last one that's optional
+	 * Say to server as player.
 	 */
-	export function takeScreenshot(folder: string, file: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper, any, any> | string, callback?: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper, any, any>):void;
+	export function say(message: string):void;
+	
+	/**
+	 * Display a Title to the player.
+	 */
+	export function title(title: any, subtitle: any, fadeIn: number, remain: number, fadeOut: number):void;
+	
+	/**
+	 * Display the smaller title that's above the actionbar.
+	 */
+	export function actionbar(text: any, tinted: boolean):void;
+	
+	/**
+	 * Display a toast.
+	 */
+	export function toast(title: any, desc: any):void;
+	
+	/**
+	 * Creates a TextHelper for use where you need one and not a string.
+	 */
+	export function createTextHelperFromString(content: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+	
+	/**
+	 * Create a  TextHelper for use where you need one and not a string.
+	 */
+	export function createTextHelperFromJSON(json: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+	
+}
+
+
+/**
+ * Functions for getting and using raw java classes, methods and functions.
+ * 
+ * An instance of this class is passed to scripts as the `time` variable.
+ */
+declare namespace time {
+	export function time():number;
+	
+	/**
+	 * Sleeps the current thread for the specified time in MS.
+	 */
+	export function sleep(millis: number):void;
 	
 }
 
@@ -869,6 +843,33 @@ declare namespace keybind {
 	 */
 	export function keyBind(keyBind: string, keyState: boolean):void;
 	export function getPressedKeys():Java.java.util.List<string>;
+	
+}
+
+
+/**
+ * Functions for getting and modifying the player's state.
+ * 
+ * An instance of this class is passed to scripts as the `player` variable.
+ */
+declare namespace player {
+	export function openInventory():Java.xyz.wagyourtail.jsmacros.client.api.classes.Inventory;
+	export function getPlayer():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper;
+	export function getGameMode():string;
+	export function rayTraceBlock(distance: number, fluid: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper;
+	export function rayTraceEntity():Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
+	
+	/**
+	 * Write to a sign screen if a sign screen is currently open.
+	 */
+	export function writeSign(l1: string, l2: string, l3: string, l4: string):boolean;
+	
+	/**
+	 * Take a screenshot and save to a file.
+	 *
+	 * `file` is the optional one, typescript doesn't like it not being the last one that's optional
+	 */
+	export function takeScreenshot(folder: string, file: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper, any, any> | string, callback?: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper, any, any>):void;
 	
 }
 
@@ -974,7 +975,7 @@ declare namespace Java {
 		setUncaughtExceptionHandler(arg0: Java.Thread.UncaughtExceptionHandler):void;
 		
 	}
-	export interface Runnable extends Java.Object {	
+	export interface Runnable extends Java.Interface {	
 		
 		run():void;
 		
@@ -1053,12 +1054,12 @@ declare namespace Java {
 		valueOf<T>(arg0: Java.Class<T>, arg1: string):T;
 		
 	}
-	export interface Comparable<T> extends Java.Object {	
+	export interface Comparable<T> extends Java.Interface {	
 		
 		compareTo(arg0: T):number;
 		
 	}
-	export interface AutoCloseable extends Java.Object {	
+	export interface AutoCloseable extends Java.Interface {	
 		
 		close():void;
 		
@@ -1067,12 +1068,12 @@ declare namespace Java {
 		
 		
 	}
-	export interface Appendable extends Java.Object {	
+	export interface Appendable extends Java.Interface {	
 		
 		append(arg0: string | number, arg1?: number, arg2?: number):Java.Appendable;
 		
 	}
-	export interface Readable extends Java.Object {	
+	export interface Readable extends Java.Interface {	
 		
 		read(arg0: Java.java.nio.CharBuffer):number;
 		
@@ -1082,48 +1083,6 @@ declare namespace Java {
 		export namespace client.api {
 			
 			export namespace helpers {
-				export interface ItemStackHelper extends Java.Object {	
-					
-					
-					/**
-					 * Sets the item damage value.
-					 * 
-					 * You may want to use ItemStackHelper#copy() first.
-					 */
-					setDamage(damage: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
-					isDamageable():boolean;
-					isEnchantable():boolean;
-					getDamage():number;
-					getMaxDamage():number;
-					getDefaultName():string;
-					getName():string;
-					getCount():number;
-					getMaxCount():number;
-					getNBT():string;
-					getCreativeTab():string;
-					getItemID():string;
-					isEmpty():boolean;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
-					toString():string;
-					equals(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
-					isItemEqual(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
-					isItemEqualIgnoreDamage(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
-					isNBTEqual(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
-					copy():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
-					
-				}
-				export interface ClientPlayerEntityHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper {	
-					
-					
-					/**
-					 * look at the specified coordinates.
-					 */
-					lookAt(x: number, y: number, z?: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper;
-					getFoodLevel():number;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
-					toString():string;
-					
-				}
 				export interface PlayerListEntryHelper extends Java.Object {	
 					
 					getUUID():string;
@@ -1131,41 +1090,6 @@ declare namespace Java {
 					getDisplayText():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
 					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
-					
-				}
-				export interface BlockDataHelper extends Java.Object {	
-					
-					getX():number;
-					getY():number;
-					getZ():number;
-					getId():string;
-					getName():string;
-					getNBT():Java.java.util.Map<string, string>;
-					getBlockState():Java.java.util.Map<string, string>;
-					getBlockPos():Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockPosHelper;
-					getRawBlock():/* minecraft classes, as any, because obfuscation: */ any;
-					getRawBlockState():/* minecraft classes, as any, because obfuscation: */ any;
-					getRawBlockEntity():/* minecraft classes, as any, because obfuscation: */ any;
-					toString():string;
-					
-				}
-				export interface TextHelper extends Java.Object {	
-					
-					
-					/**
-					 * replace the text in this class with JSON data.
-					 */
-					replaceFromJson(json: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-					
-					/**
-					 * replace the text in this class with String data.
-					 */
-					replaceFromString(content: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-					getJson():string;
-					getString():string;
-					toJson():string;
-					toString():string;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
 				export interface EntityHelper extends Java.Object {	
@@ -1204,6 +1128,83 @@ declare namespace Java {
 					create(e: /* minecraft classes, as any, because obfuscation: */ any):Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
 					
 				}
+				export interface ItemStackHelper extends Java.Object {	
+					
+					
+					/**
+					 * Sets the item damage value.
+					 * 
+					 * You may want to use ItemStackHelper#copy() first.
+					 */
+					setDamage(damage: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
+					isDamageable():boolean;
+					isEnchantable():boolean;
+					getDamage():number;
+					getMaxDamage():number;
+					getDefaultName():string;
+					getName():string;
+					getCount():number;
+					getMaxCount():number;
+					getNBT():string;
+					getCreativeTab():string;
+					getItemID():string;
+					isEmpty():boolean;
+					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
+					toString():string;
+					equals(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
+					isItemEqual(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
+					isItemEqualIgnoreDamage(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
+					isNBTEqual(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
+					copy():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
+					
+				}
+				export interface TextHelper extends Java.Object {	
+					
+					
+					/**
+					 * replace the text in this class with JSON data.
+					 */
+					replaceFromJson(json: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					
+					/**
+					 * replace the text in this class with String data.
+					 */
+					replaceFromString(content: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					getJson():string;
+					getString():string;
+					toJson():string;
+					toString():string;
+					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
+					
+				}
+				export interface ClientPlayerEntityHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper {	
+					
+					
+					/**
+					 * look at the specified coordinates.
+					 */
+					lookAt(x: number, y: number, z?: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper;
+					getFoodLevel():number;
+					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
+					toString():string;
+					
+				}
+				export interface BlockDataHelper extends Java.Object {	
+					
+					getX():number;
+					getY():number;
+					getZ():number;
+					getId():string;
+					getName():string;
+					getNBT():Java.java.util.Map<string, string>;
+					getBlockState():Java.java.util.Map<string, string>;
+					getBlockPos():Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockPosHelper;
+					getRawBlock():/* minecraft classes, as any, because obfuscation: */ any;
+					getRawBlockState():/* minecraft classes, as any, because obfuscation: */ any;
+					getRawBlockEntity():/* minecraft classes, as any, because obfuscation: */ any;
+					toString():string;
+					
+				}
 				export interface BossBarHelper extends Java.Object {	
 					
 					getUUID():string;
@@ -1229,6 +1230,20 @@ declare namespace Java {
 					isSleepingLongEnough():boolean;
 					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
+					
+				}
+				export interface ScoreboardsHelper extends Java.Object {	
+					
+					getObjectiveForTeamColorIndex(index: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardObjectiveHelper;
+					
+					/**
+					 * `0` is tablist, `1` or `3 + getPlayerTeamColorIndex()` is sidebar, `2` should be tab list.
+					 * therefore max slot number is 18.
+					 */
+					getObjectiveSlot(slot: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardObjectiveHelper;
+					getPlayerTeamColorIndex(entity: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper):number;
+					getCurrentScoreboard():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardObjectiveHelper;
+					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
 				export interface BlockPosHelper extends Java.Object {	
@@ -1303,6 +1318,14 @@ declare namespace Java {
 					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
+				export interface ScoreboardObjectiveHelper extends Java.Object {	
+					
+					getPlayerScores():Java.java.util.Map<string, number>;
+					getName():string;
+					getDisplayName():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
+					
+				}
 				export interface ButtonWidgetHelper extends Java.Object {	
 					
 					getX():number;
@@ -1358,7 +1381,7 @@ declare namespace Java {
 				
 			}
 			export namespace sharedinterfaces {
-				export interface IScreen extends Java.Object, Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IDraw2D<Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen> {	
+				export interface IScreen extends Java.Interface, Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IDraw2D<Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen> {	
 					
 					getScreenClassName():string;
 					getTitleText():string;
@@ -1386,7 +1409,7 @@ declare namespace Java {
 					reloadScreen():Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen;
 					
 				}
-				export interface IDraw2D<T> extends Java.Object {	
+				export interface IDraw2D<T> extends Java.Interface {	
 					
 					getWidth():number;
 					getHeight():number;
@@ -1731,91 +1754,6 @@ declare namespace Java {
 				negate():Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<T, U, R>;
 				
 			}
-			export namespace library.impl.classes {
-				export interface FileHandler extends Java.Object {	
-					
-					
-					/**
-					 * writes a string to the file. this is a destructive operation that replaces the file contents.writes a byte array to the file. this is a destructive operation that replaces the file contents.
-					 */
-					write(s: string | Java.Array<number>):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.FileHandler;
-					read():string;
-					readBytes():Java.Array<number>;
-					append(s: string | Java.Array<number>):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.FileHandler;
-					getFile():Java.java.io.File;
-					toString():string;
-					
-				}
-				export interface HTTPRequest extends Java.Object {	
-					headers: Java.java.util.Map<string, string>
-					conn: Java.java.net.URL
-					
-					addHeader(key: string, value: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.HTTPRequest;
-					get():Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.HTTPRequest.Response;
-					post(data: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.HTTPRequest.Response;
-					
-				}
-				export interface Websocket extends Java.Object {	
-					
-						/**
-						 * calls your method as a BiConsumer&lt;WebSocket, List&lt;String&gt;&gt;
-						 */
-					onConnect: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.java.util.Map<string, Java.java.util.List<string>>, any>
-					
-						/**
-						 * calls your method as a BiConsumer&lt;WebSocket, String&gt;
-						 */
-					onTextMessage: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, string, any>
-					
-						/**
-						 * calls your method as a BiConsumer&lt;WebSocket, Disconnected&gt;
-						 */
-					onDisconnect: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket.Disconnected, any>
-					
-						/**
-						 * calls your method as a BiConsumer&lt;WebSocket, WebSocketException&gt;
-						 */
-					onError: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.com.neovisionaries.ws.client.WebSocketException, any>
-					
-						/**
-						 * calls your method as a BiConsumer&lt;WebSocket, WebSocketFrame&gt;
-						 */
-					onFrame: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.com.neovisionaries.ws.client.WebSocketFrame, any>
-					
-					connect():Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket;
-					getWs():Java.com.neovisionaries.ws.client.WebSocket;
-					sendText(text: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket;
-					close(closeCode?: number):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket;
-					
-				}
-				export namespace HTTPRequest {
-					export interface Response extends Java.Object {	
-						headers: Java.java.util.Map<string, Java.java.util.List<string>>
-						responseCode: number
-						
-						text():string;
-						
-						/**
-						 * Don't use this. Parse HTTPRequest.Response#text() in the guest language
-						 */
-						json():Java.java.util.Map<any, any>;
-						byteArray():Java.Array<number>;
-						
-					}
-					
-				}
-				export namespace Websocket {
-					export interface Disconnected extends Java.Object {	
-						serverFrame: Java.com.neovisionaries.ws.client.WebSocketFrame
-						clientFrame: Java.com.neovisionaries.ws.client.WebSocketFrame
-						isServer: boolean
-						
-						
-					}
-					
-				}
-				
-			}
 			export namespace config {
 				export interface BaseProfile extends Java.Object {	
 					
@@ -1919,7 +1857,7 @@ declare namespace Java {
 				
 			}
 			export namespace event {
-				export interface IEventListener extends Java.Object {	
+				export interface IEventListener extends Java.Interface {	
 					
 					trigger(event: Events.BaseEvent):Java.Thread;
 					
@@ -1941,6 +1879,91 @@ declare namespace Java {
 				}
 				
 			}
+			export namespace library.impl.classes {
+				export interface HTTPRequest extends Java.Object {	
+					headers: Java.java.util.Map<string, string>
+					conn: Java.java.net.URL
+					
+					addHeader(key: string, value: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.HTTPRequest;
+					get():Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.HTTPRequest.Response;
+					post(data: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.HTTPRequest.Response;
+					
+				}
+				export interface Websocket extends Java.Object {	
+					
+						/**
+						 * calls your method as a BiConsumer&lt;WebSocket, List&lt;String&gt;&gt;
+						 */
+					onConnect: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.java.util.Map<string, Java.java.util.List<string>>, any>
+					
+						/**
+						 * calls your method as a BiConsumer&lt;WebSocket, String&gt;
+						 */
+					onTextMessage: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, string, any>
+					
+						/**
+						 * calls your method as a BiConsumer&lt;WebSocket, Disconnected&gt;
+						 */
+					onDisconnect: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket.Disconnected, any>
+					
+						/**
+						 * calls your method as a BiConsumer&lt;WebSocket, WebSocketException&gt;
+						 */
+					onError: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.com.neovisionaries.ws.client.WebSocketException, any>
+					
+						/**
+						 * calls your method as a BiConsumer&lt;WebSocket, WebSocketFrame&gt;
+						 */
+					onFrame: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.com.neovisionaries.ws.client.WebSocket, Java.com.neovisionaries.ws.client.WebSocketFrame, any>
+					
+					connect():Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket;
+					getWs():Java.com.neovisionaries.ws.client.WebSocket;
+					sendText(text: string):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket;
+					close(closeCode?: number):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.Websocket;
+					
+				}
+				export interface FileHandler extends Java.Object {	
+					
+					
+					/**
+					 * writes a string to the file. this is a destructive operation that replaces the file contents.writes a byte array to the file. this is a destructive operation that replaces the file contents.
+					 */
+					write(s: string | Java.Array<number>):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.FileHandler;
+					read():string;
+					readBytes():Java.Array<number>;
+					append(s: string | Java.Array<number>):Java.xyz.wagyourtail.jsmacros.core.library.impl.classes.FileHandler;
+					getFile():Java.java.io.File;
+					toString():string;
+					
+				}
+				export namespace HTTPRequest {
+					export interface Response extends Java.Object {	
+						headers: Java.java.util.Map<string, Java.java.util.List<string>>
+						responseCode: number
+						
+						text():string;
+						
+						/**
+						 * Don't use this. Parse HTTPRequest.Response#text() in the guest language
+						 */
+						json():Java.java.util.Map<any, any>;
+						byteArray():Java.Array<number>;
+						
+					}
+					
+				}
+				export namespace Websocket {
+					export interface Disconnected extends Java.Object {	
+						serverFrame: Java.com.neovisionaries.ws.client.WebSocketFrame
+						clientFrame: Java.com.neovisionaries.ws.client.WebSocketFrame
+						isServer: boolean
+						
+						
+					}
+					
+				}
+				
+			}
 			
 		}
 		
@@ -1948,7 +1971,7 @@ declare namespace Java {
 	export namespace java {
 		
 		export namespace util {
-			export interface Comparator<T> extends Java.Object {	
+			export interface Comparator<T> extends Java.Interface {	
 				
 				compare(arg0: T, arg1: T):number;
 				equals(arg0: any):boolean;
@@ -1999,13 +2022,13 @@ declare namespace Java {
 				comparingDouble<T>(arg0: Java.java.util._function.ToDoubleFunction<any>):Java.java.util.Comparator<T>;
 				
 			}
-			export interface Enumeration<E> extends Java.Object {	
+			export interface Enumeration<E> extends Java.Interface {	
 				
 				hasMoreElements():boolean;
 				nextElement():E;
 				
 			}
-			export interface EventListener extends Java.Object {	
+			export interface EventListener extends Java.Interface {	
 				
 				
 			}
@@ -2073,7 +2096,7 @@ declare namespace Java {
 				toString():string;
 				
 			}
-			export interface Iterator<E> extends Java.Object {	
+			export interface Iterator<E> extends Java.Interface {	
 				
 				hasNext():boolean;
 				next():E;
@@ -2081,7 +2104,7 @@ declare namespace Java {
 				forEachRemaining(arg0: Java.java.util._function.Consumer<any>):void;
 				
 			}
-			export interface Spliterator<T> extends Java.Object {	
+			export interface Spliterator<T> extends Java.Interface {	
 				
 					/**
 					 * static
@@ -2211,25 +2234,25 @@ declare namespace Java {
 				toString():string;
 				
 			}
-			export interface PrimitiveIterator<T, T_CONS> extends Java.Object, Java.java.util.Iterator<T> {	
+			export interface PrimitiveIterator<T, T_CONS> extends Java.Interface, Java.java.util.Iterator<T> {	
 				
 				forEachRemaining(arg0: T_CONS):void;
 				
 			}
 			export namespace _function {
-				export interface Consumer<T> extends Java.Object {	
+				export interface Consumer<T> extends Java.Interface {	
 					
 					accept(arg0: T):void;
 					andThen(arg0: Java.java.util._function.Consumer<any>):Java.java.util._function.Consumer<T>;
 					
 				}
-				export interface BiConsumer<T, U> extends Java.Object {	
+				export interface BiConsumer<T, U> extends Java.Interface {	
 					
 					accept(arg0: T, arg1: U):void;
 					andThen(arg0: Java.java.util._function.BiConsumer<any, any>):Java.java.util._function.BiConsumer<T, U>;
 					
 				}
-				export interface Function<T, R> extends Java.Object {	
+				export interface Function<T, R> extends Java.Interface {	
 					
 					apply(arg0: T):R;
 					compose<V>(arg0: Java.java.util._function.Function<any, any>):Java.java.util._function.Function<V, R>;
@@ -2241,13 +2264,13 @@ declare namespace Java {
 					identity<T>():Java.java.util._function.Function<T, T>;
 					
 				}
-				export interface BiFunction<T, U, R> extends Java.Object {	
+				export interface BiFunction<T, U, R> extends Java.Interface {	
 					
 					apply(arg0: T, arg1: U):R;
 					andThen<V>(arg0: Java.java.util._function.Function<any, any>):Java.java.util._function.BiFunction<T, U, V>;
 					
 				}
-				export interface Predicate<T> extends Java.Object {	
+				export interface Predicate<T> extends Java.Interface {	
 					
 					test(arg0: T):boolean;
 					and(arg0: Java.java.util._function.Predicate<any>):Java.java.util._function.Predicate<T>;
@@ -2260,7 +2283,7 @@ declare namespace Java {
 					isEqual<T>(arg0: any):Java.java.util._function.Predicate<T>;
 					
 				}
-				export interface BiPredicate<T, U> extends Java.Object {	
+				export interface BiPredicate<T, U> extends Java.Interface {	
 					
 					test(arg0: T, arg1: U):boolean;
 					and(arg0: Java.java.util._function.BiPredicate<any, any>):Java.java.util._function.BiPredicate<T, U>;
@@ -2268,27 +2291,27 @@ declare namespace Java {
 					or(arg0: Java.java.util._function.BiPredicate<any, any>):Java.java.util._function.BiPredicate<T, U>;
 					
 				}
-				export interface Supplier<T> extends Java.Object {	
+				export interface Supplier<T> extends Java.Interface {	
 					
 					get():T;
 					
 				}
-				export interface ToIntFunction<T> extends Java.Object {	
+				export interface ToIntFunction<T> extends Java.Interface {	
 					
 					applyAsInt(arg0: T):number;
 					
 				}
-				export interface ToLongFunction<T> extends Java.Object {	
+				export interface ToLongFunction<T> extends Java.Interface {	
 					
 					applyAsLong(arg0: T):number;
 					
 				}
-				export interface ToDoubleFunction<T> extends Java.Object {	
+				export interface ToDoubleFunction<T> extends Java.Interface {	
 					
 					applyAsDouble(arg0: T):number;
 					
 				}
-				export interface IntPredicate extends Java.Object {	
+				export interface IntPredicate extends Java.Interface {	
 					
 					test(arg0: number):boolean;
 					and(arg0: Java.java.util._function.IntPredicate):Java.java.util._function.IntPredicate;
@@ -2296,7 +2319,7 @@ declare namespace Java {
 					or(arg0: Java.java.util._function.IntPredicate):Java.java.util._function.IntPredicate;
 					
 				}
-				export interface IntUnaryOperator extends Java.Object {	
+				export interface IntUnaryOperator extends Java.Interface {	
 					
 					applyAsInt(arg0: number):number;
 					compose(arg0: Java.java.util._function.IntUnaryOperator):Java.java.util._function.IntUnaryOperator;
@@ -2308,54 +2331,54 @@ declare namespace Java {
 					identity():Java.java.util._function.IntUnaryOperator;
 					
 				}
-				export interface IntFunction<R> extends Java.Object {	
+				export interface IntFunction<R> extends Java.Interface {	
 					
 					apply(arg0: number):R;
 					
 				}
-				export interface IntToLongFunction extends Java.Object {	
+				export interface IntToLongFunction extends Java.Interface {	
 					
 					applyAsLong(arg0: number):number;
 					
 				}
-				export interface IntToDoubleFunction extends Java.Object {	
+				export interface IntToDoubleFunction extends Java.Interface {	
 					
 					applyAsDouble(arg0: number):number;
 					
 				}
-				export interface IntConsumer extends Java.Object {	
+				export interface IntConsumer extends Java.Interface {	
 					
 					accept(arg0: number):void;
 					andThen(arg0: Java.java.util._function.IntConsumer):Java.java.util._function.IntConsumer;
 					
 				}
-				export interface IntBinaryOperator extends Java.Object {	
+				export interface IntBinaryOperator extends Java.Interface {	
 					
 					applyAsInt(arg0: number, arg1: number):number;
 					
 				}
-				export interface ObjIntConsumer<T> extends Java.Object {	
+				export interface ObjIntConsumer<T> extends Java.Interface {	
 					
 					accept(arg0: T, arg1: number):void;
 					
 				}
-				export interface IntSupplier extends Java.Object {	
+				export interface IntSupplier extends Java.Interface {	
 					
 					getAsInt():number;
 					
 				}
-				export interface DoubleConsumer extends Java.Object {	
+				export interface DoubleConsumer extends Java.Interface {	
 					
 					accept(arg0: number):void;
 					andThen(arg0: Java.java.util._function.DoubleConsumer):Java.java.util._function.DoubleConsumer;
 					
 				}
-				export interface DoubleSupplier extends Java.Object {	
+				export interface DoubleSupplier extends Java.Interface {	
 					
 					getAsDouble():number;
 					
 				}
-				export interface BinaryOperator<T> extends Java.Object, Java.java.util._function.BiFunction<T, T, T> {	
+				export interface BinaryOperator<T> extends Java.Interface, Java.java.util._function.BiFunction<T, T, T> {	
 					
 					
 					/**
@@ -2369,7 +2392,7 @@ declare namespace Java {
 					maxBy<T>(arg0: Java.java.util.Comparator<any>):Java.java.util._function.BinaryOperator<T>;
 					
 				}
-				export interface UnaryOperator<T> extends Java.Object, Java.java.util._function.Function<T, T> {	
+				export interface UnaryOperator<T> extends Java.Interface, Java.java.util._function.Function<T, T> {	
 					
 					
 					/**
@@ -2378,7 +2401,7 @@ declare namespace Java {
 					identity<T>():Java.java.util._function.UnaryOperator<T>;
 					
 				}
-				export interface LongPredicate extends Java.Object {	
+				export interface LongPredicate extends Java.Interface {	
 					
 					test(arg0: number):boolean;
 					and(arg0: Java.java.util._function.LongPredicate):Java.java.util._function.LongPredicate;
@@ -2386,7 +2409,7 @@ declare namespace Java {
 					or(arg0: Java.java.util._function.LongPredicate):Java.java.util._function.LongPredicate;
 					
 				}
-				export interface LongUnaryOperator extends Java.Object {	
+				export interface LongUnaryOperator extends Java.Interface {	
 					
 					applyAsLong(arg0: number):number;
 					compose(arg0: Java.java.util._function.LongUnaryOperator):Java.java.util._function.LongUnaryOperator;
@@ -2398,43 +2421,43 @@ declare namespace Java {
 					identity():Java.java.util._function.LongUnaryOperator;
 					
 				}
-				export interface LongFunction<R> extends Java.Object {	
+				export interface LongFunction<R> extends Java.Interface {	
 					
 					apply(arg0: number):R;
 					
 				}
-				export interface LongToIntFunction extends Java.Object {	
+				export interface LongToIntFunction extends Java.Interface {	
 					
 					applyAsInt(arg0: number):number;
 					
 				}
-				export interface LongToDoubleFunction extends Java.Object {	
+				export interface LongToDoubleFunction extends Java.Interface {	
 					
 					applyAsDouble(arg0: number):number;
 					
 				}
-				export interface LongConsumer extends Java.Object {	
+				export interface LongConsumer extends Java.Interface {	
 					
 					accept(arg0: number):void;
 					andThen(arg0: Java.java.util._function.LongConsumer):Java.java.util._function.LongConsumer;
 					
 				}
-				export interface LongBinaryOperator extends Java.Object {	
+				export interface LongBinaryOperator extends Java.Interface {	
 					
 					applyAsLong(arg0: number, arg1: number):number;
 					
 				}
-				export interface ObjLongConsumer<T> extends Java.Object {	
+				export interface ObjLongConsumer<T> extends Java.Interface {	
 					
 					accept(arg0: T, arg1: number):void;
 					
 				}
-				export interface LongSupplier extends Java.Object {	
+				export interface LongSupplier extends Java.Interface {	
 					
 					getAsLong():number;
 					
 				}
-				export interface DoublePredicate extends Java.Object {	
+				export interface DoublePredicate extends Java.Interface {	
 					
 					test(arg0: number):boolean;
 					and(arg0: Java.java.util._function.DoublePredicate):Java.java.util._function.DoublePredicate;
@@ -2442,7 +2465,7 @@ declare namespace Java {
 					or(arg0: Java.java.util._function.DoublePredicate):Java.java.util._function.DoublePredicate;
 					
 				}
-				export interface DoubleUnaryOperator extends Java.Object {	
+				export interface DoubleUnaryOperator extends Java.Interface {	
 					
 					applyAsDouble(arg0: number):number;
 					compose(arg0: Java.java.util._function.DoubleUnaryOperator):Java.java.util._function.DoubleUnaryOperator;
@@ -2454,27 +2477,27 @@ declare namespace Java {
 					identity():Java.java.util._function.DoubleUnaryOperator;
 					
 				}
-				export interface DoubleFunction<R> extends Java.Object {	
+				export interface DoubleFunction<R> extends Java.Interface {	
 					
 					apply(arg0: number):R;
 					
 				}
-				export interface DoubleToIntFunction extends Java.Object {	
+				export interface DoubleToIntFunction extends Java.Interface {	
 					
 					applyAsInt(arg0: number):number;
 					
 				}
-				export interface DoubleToLongFunction extends Java.Object {	
+				export interface DoubleToLongFunction extends Java.Interface {	
 					
 					applyAsLong(arg0: number):number;
 					
 				}
-				export interface DoubleBinaryOperator extends Java.Object {	
+				export interface DoubleBinaryOperator extends Java.Interface {	
 					
 					applyAsDouble(arg0: number, arg1: number):number;
 					
 				}
-				export interface ObjDoubleConsumer<T> extends Java.Object {	
+				export interface ObjDoubleConsumer<T> extends Java.Interface {	
 					
 					accept(arg0: T, arg1: number):void;
 					
@@ -2482,7 +2505,7 @@ declare namespace Java {
 				
 			}
 			export namespace concurrent {
-				export interface ExecutorService extends Java.Object, Java.java.util.concurrent.Executor {	
+				export interface ExecutorService extends Java.Interface, Java.java.util.concurrent.Executor {	
 					
 					shutdown():void;
 					shutdownNow():Java.java.util.List<Java.Runnable>;
@@ -2494,12 +2517,12 @@ declare namespace Java {
 					invokeAny<T>(arg0: Java.java.util.Collection<any>, arg1?: number, arg2?: Java.java.util.concurrent.TimeUnit):T;
 					
 				}
-				export interface Callable<V> extends Java.Object {	
+				export interface Callable<V> extends Java.Interface {	
 					
 					call():V;
 					
 				}
-				export interface Executor extends Java.Object {	
+				export interface Executor extends Java.Interface {	
 					
 					execute(arg0: Java.Runnable):void;
 					
@@ -2529,7 +2552,7 @@ declare namespace Java {
 					sleep(arg0: number):void;
 					
 				}
-				export interface Future<V> extends Java.Object {	
+				export interface Future<V> extends Java.Interface {	
 					
 					cancel(arg0: boolean):boolean;
 					isCancelled():boolean;
@@ -2540,7 +2563,7 @@ declare namespace Java {
 				
 			}
 			export namespace stream {
-				export interface IntStream extends Java.Object, Java.java.util.stream.BaseStream<number, Java.java.util.stream.IntStream> {	
+				export interface IntStream extends Java.Interface, Java.java.util.stream.BaseStream<number, Java.java.util.stream.IntStream> {	
 					
 					filter(arg0: Java.java.util._function.IntPredicate):Java.java.util.stream.IntStream;
 					map(arg0: Java.java.util._function.IntUnaryOperator):Java.java.util.stream.IntStream;
@@ -2618,7 +2641,7 @@ declare namespace Java {
 					concat(arg0: Java.java.util.stream.IntStream, arg1: Java.java.util.stream.IntStream):Java.java.util.stream.IntStream;
 					
 				}
-				export interface BaseStream<T, S> extends Java.Object, Java.AutoCloseable {	
+				export interface BaseStream<T, S> extends Java.Interface, Java.AutoCloseable {	
 					
 					iterator():Java.java.util.Iterator<T>;
 					spliterator():Java.java.util.Spliterator<T>;
@@ -2630,7 +2653,7 @@ declare namespace Java {
 					close():void;
 					
 				}
-				export interface Stream<T> extends Java.Object, Java.java.util.stream.BaseStream<T, Java.java.util.stream.Stream<T>> {	
+				export interface Stream<T> extends Java.Interface, Java.java.util.stream.BaseStream<T, Java.java.util.stream.Stream<T>> {	
 					
 					filter(arg0: Java.java.util._function.Predicate<any>):Java.java.util.stream.Stream<T>;
 					map<R>(arg0: Java.java.util._function.Function<any, any>):Java.java.util.stream.Stream<R>;
@@ -2691,7 +2714,7 @@ declare namespace Java {
 					concat<T>(arg0: Java.java.util.stream.Stream<any>, arg1: Java.java.util.stream.Stream<any>):Java.java.util.stream.Stream<T>;
 					
 				}
-				export interface LongStream extends Java.Object, Java.java.util.stream.BaseStream<number, Java.java.util.stream.LongStream> {	
+				export interface LongStream extends Java.Interface, Java.java.util.stream.BaseStream<number, Java.java.util.stream.LongStream> {	
 					
 					filter(arg0: Java.java.util._function.LongPredicate):Java.java.util.stream.LongStream;
 					map(arg0: Java.java.util._function.LongUnaryOperator):Java.java.util.stream.LongStream;
@@ -2768,7 +2791,7 @@ declare namespace Java {
 					concat(arg0: Java.java.util.stream.LongStream, arg1: Java.java.util.stream.LongStream):Java.java.util.stream.LongStream;
 					
 				}
-				export interface DoubleStream extends Java.Object, Java.java.util.stream.BaseStream<number, Java.java.util.stream.DoubleStream> {	
+				export interface DoubleStream extends Java.Interface, Java.java.util.stream.BaseStream<number, Java.java.util.stream.DoubleStream> {	
 					
 					filter(arg0: Java.java.util._function.DoublePredicate):Java.java.util.stream.DoubleStream;
 					map(arg0: Java.java.util._function.DoubleUnaryOperator):Java.java.util.stream.DoubleStream;
@@ -2834,7 +2857,7 @@ declare namespace Java {
 					concat(arg0: Java.java.util.stream.DoubleStream, arg1: Java.java.util.stream.DoubleStream):Java.java.util.stream.DoubleStream;
 					
 				}
-				export interface Collector<T, A, R> extends Java.Object {	
+				export interface Collector<T, A, R> extends Java.Interface {	
 					
 					supplier():Java.java.util._function.Supplier<A>;
 					accumulator():Java.java.util._function.BiConsumer<A, T>;
@@ -2849,7 +2872,7 @@ declare namespace Java {
 					
 				}
 				export namespace IntStream {
-					export interface Builder extends Java.Object, Java.java.util._function.IntConsumer {	
+					export interface Builder extends Java.Interface, Java.java.util._function.IntConsumer {	
 						
 						accept(arg0: number):void;
 						add(arg0: number):Java.java.util.stream.IntStream.Builder;
@@ -2859,7 +2882,7 @@ declare namespace Java {
 					
 				}
 				export namespace Stream {
-					export interface Builder<T> extends Java.Object, Java.java.util._function.Consumer<T> {	
+					export interface Builder<T> extends Java.Interface, Java.java.util._function.Consumer<T> {	
 						
 						accept(arg0: T):void;
 						add(arg0: T):Java.java.util.stream.Stream.Builder<T>;
@@ -2869,7 +2892,7 @@ declare namespace Java {
 					
 				}
 				export namespace LongStream {
-					export interface Builder extends Java.Object, Java.java.util._function.LongConsumer {	
+					export interface Builder extends Java.Interface, Java.java.util._function.LongConsumer {	
 						
 						accept(arg0: number):void;
 						add(arg0: number):Java.java.util.stream.LongStream.Builder;
@@ -2879,7 +2902,7 @@ declare namespace Java {
 					
 				}
 				export namespace DoubleStream {
-					export interface Builder extends Java.Object, Java.java.util._function.DoubleConsumer {	
+					export interface Builder extends Java.Interface, Java.java.util._function.DoubleConsumer {	
 						
 						accept(arg0: number):void;
 						add(arg0: number):Java.java.util.stream.DoubleStream.Builder;
@@ -2908,21 +2931,21 @@ declare namespace Java {
 				
 			}
 			export namespace PrimitiveIterator {
-				export interface OfInt extends Java.Object, Java.java.util.PrimitiveIterator<number, Java.java.util._function.IntConsumer> {	
+				export interface OfInt extends Java.Interface, Java.java.util.PrimitiveIterator<number, Java.java.util._function.IntConsumer> {	
 					
 					nextInt():number;
 					forEachRemaining(arg0: Java.java.util._function.IntConsumer | Java.java.util._function.Consumer<any>):void;
 					next():number;
 					
 				}
-				export interface OfLong extends Java.Object, Java.java.util.PrimitiveIterator<number, Java.java.util._function.LongConsumer> {	
+				export interface OfLong extends Java.Interface, Java.java.util.PrimitiveIterator<number, Java.java.util._function.LongConsumer> {	
 					
 					nextLong():number;
 					forEachRemaining(arg0: Java.java.util._function.LongConsumer | Java.java.util._function.Consumer<any>):void;
 					next():number;
 					
 				}
-				export interface OfDouble extends Java.Object, Java.java.util.PrimitiveIterator<number, Java.java.util._function.DoubleConsumer> {	
+				export interface OfDouble extends Java.Interface, Java.java.util.PrimitiveIterator<number, Java.java.util._function.DoubleConsumer> {	
 					
 					nextDouble():number;
 					forEachRemaining(arg0: Java.java.util._function.DoubleConsumer | Java.java.util._function.Consumer<any>):void;
@@ -2932,28 +2955,28 @@ declare namespace Java {
 				
 			}
 			export namespace Spliterator {
-				export interface OfInt extends Java.Object, Java.java.util.Spliterator.OfPrimitive<number, Java.java.util._function.IntConsumer, Java.java.util.Spliterator.OfInt> {	
+				export interface OfInt extends Java.Interface, Java.java.util.Spliterator.OfPrimitive<number, Java.java.util._function.IntConsumer, Java.java.util.Spliterator.OfInt> {	
 					
 					trySplit():Java.java.util.Spliterator.OfInt;
 					tryAdvance(arg0: Java.java.util._function.IntConsumer | Java.java.util._function.Consumer<any>):boolean;
 					forEachRemaining(arg0: Java.java.util._function.IntConsumer | Java.java.util._function.Consumer<any>):void;
 					
 				}
-				export interface OfLong extends Java.Object, Java.java.util.Spliterator.OfPrimitive<number, Java.java.util._function.LongConsumer, Java.java.util.Spliterator.OfLong> {	
+				export interface OfLong extends Java.Interface, Java.java.util.Spliterator.OfPrimitive<number, Java.java.util._function.LongConsumer, Java.java.util.Spliterator.OfLong> {	
 					
 					trySplit():Java.java.util.Spliterator.OfLong;
 					tryAdvance(arg0: Java.java.util._function.LongConsumer | Java.java.util._function.Consumer<any>):boolean;
 					forEachRemaining(arg0: Java.java.util._function.LongConsumer | Java.java.util._function.Consumer<any>):void;
 					
 				}
-				export interface OfDouble extends Java.Object, Java.java.util.Spliterator.OfPrimitive<number, Java.java.util._function.DoubleConsumer, Java.java.util.Spliterator.OfDouble> {	
+				export interface OfDouble extends Java.Interface, Java.java.util.Spliterator.OfPrimitive<number, Java.java.util._function.DoubleConsumer, Java.java.util.Spliterator.OfDouble> {	
 					
 					trySplit():Java.java.util.Spliterator.OfDouble;
 					tryAdvance(arg0: Java.java.util._function.DoubleConsumer | Java.java.util._function.Consumer<any>):boolean;
 					forEachRemaining(arg0: Java.java.util._function.DoubleConsumer | Java.java.util._function.Consumer<any>):void;
 					
 				}
-				export interface OfPrimitive<T, T_CONS, T_SPLITR> extends Java.Object, Java.java.util.Spliterator<T> {	
+				export interface OfPrimitive<T, T_CONS, T_SPLITR> extends Java.Interface, Java.java.util.Spliterator<T> {	
 					
 					trySplit():T_SPLITR;
 					tryAdvance(arg0: T_CONS):boolean;
@@ -3066,7 +3089,7 @@ declare namespace Java {
 				setUncaughtExceptionHandler(arg0: Java.Thread.UncaughtExceptionHandler):void;
 				
 			}
-			export interface Runnable extends Java.Object {	
+			export interface Runnable extends Java.Interface {	
 				
 				run():void;
 				
@@ -3145,12 +3168,12 @@ declare namespace Java {
 				valueOf<T>(arg0: Java.Class<T>, arg1: string):T;
 				
 			}
-			export interface Comparable<T> extends Java.Object {	
+			export interface Comparable<T> extends Java.Interface {	
 				
 				compareTo(arg0: T):number;
 				
 			}
-			export interface AutoCloseable extends Java.Object {	
+			export interface AutoCloseable extends Java.Interface {	
 				
 				close():void;
 				
@@ -3159,12 +3182,12 @@ declare namespace Java {
 				
 				
 			}
-			export interface Appendable extends Java.Object {	
+			export interface Appendable extends Java.Interface {	
 				
 				append(arg0: string | number, arg1?: number, arg2?: number):Java.Appendable;
 				
 			}
-			export interface Readable extends Java.Object {	
+			export interface Readable extends Java.Interface {	
 				
 				read(arg0: Java.java.nio.CharBuffer):number;
 				
@@ -3183,7 +3206,7 @@ declare namespace Java {
 				markSupported():boolean;
 				
 			}
-			export interface Closeable extends Java.Object, Java.AutoCloseable {	
+			export interface Closeable extends Java.Interface, Java.AutoCloseable {	
 				
 				close():void;
 				
@@ -3195,7 +3218,7 @@ declare namespace Java {
 				close():void;
 				
 			}
-			export interface Flushable extends Java.Object {	
+			export interface Flushable extends Java.Interface {	
 				
 				flush():void;
 				
@@ -3303,7 +3326,7 @@ declare namespace Java {
 				getLocalHost():Java.java.net.InetAddress;
 				
 			}
-			export interface SocketImplFactory extends Java.Object {	
+			export interface SocketImplFactory extends Java.Interface {	
 				
 				createSocketImpl():Java.java.net.SocketImpl;
 				
@@ -3354,7 +3377,7 @@ declare namespace Java {
 				toString():string;
 				
 			}
-			export interface SocketOption<T> extends Java.Object {	
+			export interface SocketOption<T> extends Java.Interface {	
 				
 				name():string;
 				type():Java.Class<T>;
@@ -3370,7 +3393,7 @@ declare namespace Java {
 				toString():string;
 				
 			}
-			export interface SocketOptions extends Java.Object {	
+			export interface SocketOptions extends Java.Interface {	
 				
 					/**
 					 * static
@@ -3446,7 +3469,7 @@ declare namespace Java {
 				getOption(arg0: number):any;
 				
 			}
-			export interface ProtocolFamily extends Java.Object {	
+			export interface ProtocolFamily extends Java.Interface {	
 				
 				name():string;
 				
@@ -3529,7 +3552,7 @@ declare namespace Java {
 				setLength(arg0: number):void;
 				
 			}
-			export interface DatagramSocketImplFactory extends Java.Object {	
+			export interface DatagramSocketImplFactory extends Java.Interface {	
 				
 				createDatagramSocketImpl():Java.java.net.DatagramSocketImpl;
 				
@@ -3836,21 +3859,21 @@ declare namespace Java {
 					getLocalAddress():Java.java.net.SocketAddress;
 					
 				}
-				export interface ByteChannel extends Java.Object, Java.java.nio.channels.ReadableByteChannel, Java.java.nio.channels.WritableByteChannel {	
+				export interface ByteChannel extends Java.Interface, Java.java.nio.channels.ReadableByteChannel, Java.java.nio.channels.WritableByteChannel {	
 					
 					
 				}
-				export interface ScatteringByteChannel extends Java.Object, Java.java.nio.channels.ReadableByteChannel {	
+				export interface ScatteringByteChannel extends Java.Interface, Java.java.nio.channels.ReadableByteChannel {	
 					
 					read(arg0: Java.Array<Java.java.nio.ByteBuffer>, arg1?: number, arg2?: number):number;
 					
 				}
-				export interface GatheringByteChannel extends Java.Object, Java.java.nio.channels.WritableByteChannel {	
+				export interface GatheringByteChannel extends Java.Interface, Java.java.nio.channels.WritableByteChannel {	
 					
 					write(arg0: Java.Array<Java.java.nio.ByteBuffer>, arg1?: number, arg2?: number):number;
 					
 				}
-				export interface NetworkChannel extends Java.Object, Java.java.nio.channels.Channel {	
+				export interface NetworkChannel extends Java.Interface, Java.java.nio.channels.Channel {	
 					
 					bind(arg0: Java.java.net.SocketAddress):Java.java.nio.channels.NetworkChannel;
 					getLocalAddress():Java.java.net.SocketAddress;
@@ -3924,17 +3947,17 @@ declare namespace Java {
 					attachment():any;
 					
 				}
-				export interface ReadableByteChannel extends Java.Object, Java.java.nio.channels.Channel {	
+				export interface ReadableByteChannel extends Java.Interface, Java.java.nio.channels.Channel {	
 					
 					read(arg0: Java.java.nio.ByteBuffer):number;
 					
 				}
-				export interface WritableByteChannel extends Java.Object, Java.java.nio.channels.Channel {	
+				export interface WritableByteChannel extends Java.Interface, Java.java.nio.channels.Channel {	
 					
 					write(arg0: Java.java.nio.ByteBuffer):number;
 					
 				}
-				export interface Channel extends Java.Object, Java.java.io.Closeable {	
+				export interface Channel extends Java.Interface, Java.java.io.Closeable {	
 					
 					isOpen():boolean;
 					close():void;
@@ -3988,12 +4011,12 @@ declare namespace Java {
 					getLocalAddress():Java.java.net.SocketAddress;
 					
 				}
-				export interface InterruptibleChannel extends Java.Object, Java.java.nio.channels.Channel {	
+				export interface InterruptibleChannel extends Java.Interface, Java.java.nio.channels.Channel {	
 					
 					close():void;
 					
 				}
-				export interface MulticastChannel extends Java.Object, Java.java.nio.channels.NetworkChannel {	
+				export interface MulticastChannel extends Java.Interface, Java.java.nio.channels.NetworkChannel {	
 					
 					close():void;
 					join(arg0: Java.java.net.InetAddress, arg1: Java.java.net.NetworkInterface, arg2?: Java.java.net.InetAddress):Java.java.nio.channels.MembershipKey;
@@ -4164,7 +4187,7 @@ declare namespace Java {
 			getAnnotatedExceptionTypes():Java.Array<Java.reflect.AnnotatedType>;
 			
 		}
-		export interface TypeVariable<D> extends Java.Object, Java.reflect.Type, Java.reflect.AnnotatedElement {	
+		export interface TypeVariable<D> extends Java.Interface, Java.reflect.Type, Java.reflect.AnnotatedElement {	
 			
 			getBounds():Java.Array<Java.reflect.Type>;
 			getGenericDeclaration():D;
@@ -4172,12 +4195,12 @@ declare namespace Java {
 			getAnnotatedBounds():Java.Array<Java.reflect.AnnotatedType>;
 			
 		}
-		export interface Type extends Java.Object {	
+		export interface Type extends Java.Interface {	
 			
 			getTypeName():string;
 			
 		}
-		export interface AnnotatedType extends Java.Object, Java.reflect.AnnotatedElement {	
+		export interface AnnotatedType extends Java.Interface, Java.reflect.AnnotatedElement {	
 			
 			getType():Java.reflect.Type;
 			
@@ -4199,7 +4222,7 @@ declare namespace Java {
 			getDeclaredAnnotations():Java.Array<Java.annotation.Annotation>;
 			
 		}
-		export interface Member extends Java.Object {	
+		export interface Member extends Java.Interface {	
 			
 				/**
 				 * static
@@ -4217,7 +4240,7 @@ declare namespace Java {
 			isSynthetic():boolean;
 			
 		}
-		export interface GenericDeclaration extends Java.Object, Java.reflect.AnnotatedElement {	
+		export interface GenericDeclaration extends Java.Interface, Java.reflect.AnnotatedElement {	
 			
 			getTypeParameters():Java.reflect.TypeVariable<any>;
 			
@@ -4245,7 +4268,7 @@ declare namespace Java {
 			getAnnotations():Java.Array<Java.annotation.Annotation>;
 			
 		}
-		export interface AnnotatedElement extends Java.Object {	
+		export interface AnnotatedElement extends Java.Interface {	
 			
 			isAnnotationPresent(arg0: Java.Class<any>):boolean;
 			getAnnotation<T>(arg0: Java.Class<T>):T;
@@ -4259,7 +4282,7 @@ declare namespace Java {
 		
 	}
 	export namespace javax.sound.sampled {
-		export interface Clip extends Java.Object, Java.javax.sound.sampled.DataLine {	
+		export interface Clip extends Java.Interface, Java.javax.sound.sampled.DataLine {	
 			
 				/**
 				 * static
@@ -4275,7 +4298,7 @@ declare namespace Java {
 			loop(arg0: number):void;
 			
 		}
-		export interface DataLine extends Java.Object, Java.javax.sound.sampled.Line {	
+		export interface DataLine extends Java.Interface, Java.javax.sound.sampled.Line {	
 			
 			drain():void;
 			flush():void;
@@ -4320,7 +4343,7 @@ declare namespace Java {
 			markSupported():boolean;
 			
 		}
-		export interface Line extends Java.Object, Java.AutoCloseable {	
+		export interface Line extends Java.Interface, Java.AutoCloseable {	
 			
 			getLineInfo():Java.javax.sound.sampled.Line.Info;
 			open():void;
@@ -4339,7 +4362,7 @@ declare namespace Java {
 			toString():string;
 			
 		}
-		export interface LineListener extends Java.Object, Java.java.util.EventListener {	
+		export interface LineListener extends Java.Interface, Java.java.util.EventListener {	
 			
 			update(arg0: Java.javax.sound.sampled.LineEvent):void;
 			
@@ -4454,7 +4477,7 @@ declare namespace Java {
 			valueOf(arg0: string):Java.Thread.State;
 			
 		}
-		export interface UncaughtExceptionHandler extends Java.Object {	
+		export interface UncaughtExceptionHandler extends Java.Interface {	
 			
 			uncaughtException(arg0: Java.Thread, arg1: Java.Throwable):void;
 			
@@ -4627,12 +4650,12 @@ declare namespace Java {
 			parse(arg0: string):Java.com.neovisionaries.ws.client.WebSocketExtension;
 			
 		}
-		export interface PayloadGenerator extends Java.Object {	
+		export interface PayloadGenerator extends Java.Interface {	
 			
 			generate():Java.Array<number>;
 			
 		}
-		export interface WebSocketListener extends Java.Object {	
+		export interface WebSocketListener extends Java.Interface {	
 			
 			onStateChanged(arg0: Java.com.neovisionaries.ws.client.WebSocket, arg1: Java.com.neovisionaries.ws.client.WebSocketState):void;
 			onConnected(arg0: Java.com.neovisionaries.ws.client.WebSocket, arg1: Java.java.util.Map<string, Java.java.util.List<string>>):void;
@@ -4695,7 +4718,7 @@ declare namespace Java {
 		
 	}
 	export namespace annotation {
-		export interface Annotation extends Java.Object {	
+		export interface Annotation extends Java.Interface {	
 			
 			equals(arg0: any):boolean;
 			hashCode():number;
