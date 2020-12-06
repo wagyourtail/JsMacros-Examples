@@ -1669,6 +1669,7 @@ declare namespace Java {
 					
 					/**
 					 * simulates a shift-click on a slot.
+					 * It should be safe to chain these without FClient#waitTick() at least for a bunch of the same item.
 					 */
 					quick(slot: number):Java.xyz.wagyourtail.jsmacros.client.api.classes.Inventory;
 					getHeld():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
@@ -1681,7 +1682,7 @@ declare namespace Java {
 					split(slot1: number, slot2: number):Java.xyz.wagyourtail.jsmacros.client.api.classes.Inventory;
 					
 					/**
-					 * does that double click on a slot thingy to move all of a type into/out-of a chest.
+					 * Does that double click thingy to turn a incomplete stack pickup into a complete stack pickup if you have more in your inventory.
 					 */
 					grabAll(slot: number):Java.xyz.wagyourtail.jsmacros.client.api.classes.Inventory;
 					
