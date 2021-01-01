@@ -96,6 +96,11 @@ declare namespace Events {
 		 */
 		getObject(name: string):any;
 		
+		/**
+		 * registers event so you can see it in the gui
+		 */
+		registerEvent():void;
+		
 	}
 
 	export interface PlayerLeave extends BaseEvent {		
@@ -113,7 +118,7 @@ declare namespace Events {
 	}
 
 	export interface Damage extends BaseEvent {		
-		readonly attacker: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper
+		readonly attacker: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<>
 		readonly source: string
 		readonly health: number
 		readonly change: number
@@ -168,7 +173,7 @@ declare namespace Events {
 	}
 
 	export interface JoinServer extends BaseEvent {		
-		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper
+		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper<>
 		readonly address: string
 		
 		toString():string;
@@ -359,7 +364,7 @@ declare namespace jsmacros {
 	
 	/**
 	 * create a custom event object that can trigger a event. It's recommended to use 
-	 * `jsMacros.getProfile().getRegistry().addEvent(eventName)` to set up the event to be visible in the GUI first.
+	 * EventCustom#registerEvent() to set up the event to be visible in the GUI.
 	 */
 	export function createCustomEvent(eventName: string):Events.Custom;
 	
@@ -680,11 +685,16 @@ declare namespace hud {
  * An instance of this class is passed to scripts as the `world` variable.
  */
 declare namespace world {
-	export function getLoadedPlayers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper>;
+	
+	/**
+	 * returns whether a world is currently loaded
+	 */
+	export function isWorldLoaded():boolean;
+	export function getLoadedPlayers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper</* minecraft classes, as any, because obfuscation: */ any>>;
 	export function getPlayers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerListEntryHelper>;
 	export function getBlock(x: number, y: number, z: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper;
 	export function getScoreboards():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardsHelper;
-	export function getEntities():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper>;
+	export function getEntities():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<any>>;
 	export function getDimension():string;
 	export function getBiome():string;
 	export function getTime():number;
@@ -793,6 +803,7 @@ declare namespace chat {
 	 * Create a  TextHelper for use where you need one and not a string.
 	 */
 	export function createTextHelperFromJSON(json: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+	export function createTextBuilder():Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
 	
 }
 
@@ -854,10 +865,10 @@ declare namespace keybind {
  */
 declare namespace player {
 	export function openInventory():Java.xyz.wagyourtail.jsmacros.client.api.classes.Inventory;
-	export function getPlayer():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper;
+	export function getPlayer():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper</* minecraft classes, as any, because obfuscation: */ any>;
 	export function getGameMode():string;
 	export function rayTraceBlock(distance: number, fluid: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.BlockDataHelper;
-	export function rayTraceEntity():Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
+	export function rayTraceEntity():Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper</* minecraft classes, as any, because obfuscation: */ any>;
 	
 	/**
 	 * Write to a sign screen if a sign screen is currently open.
@@ -1083,16 +1094,15 @@ declare namespace Java {
 		export namespace client.api {
 			
 			export namespace helpers {
-				export interface PlayerListEntryHelper extends Java.Object {	
+				export interface PlayerListEntryHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getUUID():string;
 					getName():string;
 					getDisplayText():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
 					
 				}
-				export interface EntityHelper extends Java.Object {	
+				export interface EntityHelper<T> extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper<T> {	
 					
 					getPos():Java.xyz.wagyourtail.jsmacros.client.api.sharedclasses.PositionCommon.Pos3D;
 					getX():number;
@@ -1106,29 +1116,28 @@ declare namespace Java {
 					isGlowing():boolean;
 					isInLava():boolean;
 					isOnFire():boolean;
-					getVehicle():Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
-					getPassengers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper>;
+					getVehicle():Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<T>;
+					getPassengers():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<any>>;
 					getNBT():string;
 					
 					/**
 					 * Sets whether the entity is glowing.
 					 */
-					setGlowing(val: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
+					setGlowing(val: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<T>;
 					
 					/**
 					 * Checks if the entity is still alive.
 					 */
 					isAlive():boolean;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
 					
 					/**
 					 * static
 					 */
-					create(e: /* minecraft classes, as any, because obfuscation: */ any):Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper;
+					create(e: /* minecraft classes, as any, because obfuscation: */ any):Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<any>;
 					
 				}
-				export interface ItemStackHelper extends Java.Object {	
+				export interface ItemStackHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					
 					/**
@@ -1149,7 +1158,6 @@ declare namespace Java {
 					getCreativeTab():string;
 					getItemID():string;
 					isEmpty():boolean;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
 					equals(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
 					isItemEqual(ish: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper | /* minecraft classes, as any, because obfuscation: */ any):boolean;
@@ -1158,7 +1166,7 @@ declare namespace Java {
 					copy():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
 					
 				}
-				export interface TextHelper extends Java.Object {	
+				export interface TextHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					
 					/**
@@ -1174,22 +1182,20 @@ declare namespace Java {
 					getString():string;
 					toJson():string;
 					toString():string;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
-				export interface ClientPlayerEntityHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper {	
+				export interface ClientPlayerEntityHelper<T> extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper<T> {	
 					
 					
 					/**
 					 * look at the specified coordinates.
 					 */
-					lookAt(x: number, y: number, z?: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper;
+					lookAt(x: number, y: number, z?: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper<T>;
 					getFoodLevel():number;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
 					
 				}
-				export interface BlockDataHelper extends Java.Object {	
+				export interface BlockDataHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getX():number;
 					getY():number;
@@ -1205,18 +1211,17 @@ declare namespace Java {
 					toString():string;
 					
 				}
-				export interface BossBarHelper extends Java.Object {	
+				export interface BossBarHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getUUID():string;
 					getPercent():number;
 					getColor():string;
 					getStyle():string;
 					getName():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
 					
 				}
-				export interface PlayerEntityHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.LivingEntityHelper {	
+				export interface PlayerEntityHelper<T> extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.LivingEntityHelper<T> {	
 					
 					getAbilities():Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerAbilitiesHelper;
 					getMainHand():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
@@ -1228,11 +1233,10 @@ declare namespace Java {
 					getXP():number;
 					isSleeping():boolean;
 					isSleepingLongEnough():boolean;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					toString():string;
 					
 				}
-				export interface ScoreboardsHelper extends Java.Object {	
+				export interface ScoreboardsHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getObjectiveForTeamColorIndex(index: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardObjectiveHelper;
 					
@@ -1241,12 +1245,13 @@ declare namespace Java {
 					 * therefore max slot number is 18.
 					 */
 					getObjectiveSlot(slot: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardObjectiveHelper;
-					getPlayerTeamColorIndex(entity: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper):number;
+					getPlayerTeamColorIndex(entity: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper</* minecraft classes, as any, because obfuscation: */ any>):number;
+					getTeams():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.TeamHelper>;
+					getPlayerTeam(p: Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerEntityHelper</* minecraft classes, as any, because obfuscation: */ any>):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TeamHelper;
 					getCurrentScoreboard():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ScoreboardObjectiveHelper;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
-				export interface BlockPosHelper extends Java.Object {	
+				export interface BlockPosHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getX():number;
 					getY():number;
@@ -1254,7 +1259,7 @@ declare namespace Java {
 					toString():string;
 					
 				}
-				export interface OptionsHelper extends Java.Object {	
+				export interface OptionsHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getCloudMode():number;
 					setCloudMode(mode: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.OptionsHelper;
@@ -1278,10 +1283,16 @@ declare namespace Java {
 					setWidth(w: number):void;
 					setHeight(h: number):void;
 					setSize(w: number, h: number):void;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
+					getGamma():number;
+					setGamma(gamma: number):void;
 					
 				}
-				export interface LivingEntityHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper {	
+				export interface BaseHelper<T> extends Java.Object {	
+					
+					getRaw():T;
+					
+				}
+				export interface LivingEntityHelper<T> extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<T> {	
 					
 					getStatusEffects():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.StatusEffectHelper>;
 					getMainHand():Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper;
@@ -1293,7 +1304,7 @@ declare namespace Java {
 					isSleeping():boolean;
 					
 				}
-				export interface PlayerAbilitiesHelper extends Java.Object {	
+				export interface PlayerAbilitiesHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getInvulnerable():boolean;
 					getFlying():boolean;
@@ -1315,18 +1326,31 @@ declare namespace Java {
 					 * set the player fly speed multiplier.
 					 */
 					setFlySpeed(flySpeed: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.PlayerAbilitiesHelper;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
-				export interface ScoreboardObjectiveHelper extends Java.Object {	
+				export interface ScoreboardObjectiveHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getPlayerScores():Java.java.util.Map<string, number>;
 					getName():string;
 					getDisplayName():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
-				export interface ButtonWidgetHelper extends Java.Object {	
+				export interface TeamHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
+					
+					getName():string;
+					getDisplayName():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					getPlayerList():Java.java.util.List<string>;
+					getColor():number;
+					getPrefix():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					getSuffix():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					getCollisionRule():string;
+					isFriendlyFire():boolean;
+					showFriendlyInvisibles():boolean;
+					nametagVisibility():string;
+					deathMessageVisibility():string;
+					
+				}
+				export interface ButtonWidgetHelper<T> extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper<T> {	
 					
 					getX():number;
 					getY():number;
@@ -1334,30 +1358,33 @@ declare namespace Java {
 					/**
 					 * Set the button position.
 					 */
-					setPos(x: number, y: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper;
+					setPos(x: number, y: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<T>;
 					getWidth():number;
 					
 					/**
 					 * change the text.
 					 */
-					setText(message: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper;
+					setText(message: string):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<T>;
 					getText():string;
 					getActive():boolean;
 					
 					/**
 					 * set the button clickable state.
 					 */
-					setActive(t: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper;
+					setActive(t: boolean):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<T>;
 					
 					/**
 					 * set the button width.
 					 */
-					setWidth(width: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
+					setWidth(width: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<T>;
 					render(matrices: /* minecraft classes, as any, because obfuscation: */ any, mouseX: number, mouseY: number, delta: number):void;
 					
 				}
-				export interface TextFieldWidgetHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper {	
+				
+					/**
+					 * F
+					 */
+				export interface TextFieldWidgetHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getText():string;
 					
@@ -1370,12 +1397,11 @@ declare namespace Java {
 					setUneditableColor(color: number):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextFieldWidgetHelper;
 					
 				}
-				export interface StatusEffectHelper extends Java.Object {	
+				export interface StatusEffectHelper extends Java.xyz.wagyourtail.jsmacros.client.api.helpers.BaseHelper</* minecraft classes, as any, because obfuscation: */ any> {	
 					
 					getId():string;
 					getStrength():number;
 					getTime():number;
-					getRaw():/* minecraft classes, as any, because obfuscation: */ any;
 					
 				}
 				
@@ -1385,10 +1411,10 @@ declare namespace Java {
 					
 					getScreenClassName():string;
 					getTitleText():string;
-					getButtonWidgets():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper>;
+					getButtonWidgets():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<>>;
 					getTextFields():Java.java.util.List<Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextFieldWidgetHelper>;
-					addButton(x: number, y: number, width: number, height: number, text: string, callback: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper, Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen, any>):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper;
-					removeButton(btn: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper):Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen;
+					addButton(x: number, y: number, width: number, height: number, text: string, callback: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<>, Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen, any>):Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<>;
+					removeButton(btn: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ButtonWidgetHelper<>):Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen;
 					addTextInput(x: number, y: number, width: number, height: number, message: string, onChange: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<string, Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen, any>):Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextFieldWidgetHelper;
 					removeTextInput(inp: Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextFieldWidgetHelper):Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen;
 					setOnMouseDown(onMouseDown: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<Java.xyz.wagyourtail.jsmacros.client.api.sharedclasses.PositionCommon.Pos2D, number, any>):Java.xyz.wagyourtail.jsmacros.client.api.sharedinterfaces.IScreen;
@@ -1642,6 +1668,59 @@ declare namespace Java {
 					render():void;
 					
 				}
+				
+					/**
+					 * usage: `builder.append("hello,").withColor(0xc).append(" World!").withColor(0x6)`
+					 */
+				export interface TextBuilder extends Java.Object {	
+					
+					
+					/**
+					 * move on to next section and set it's text.move on to next section and set it's text.
+					 */
+					append(text: string | Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * set current section's color
+					 */
+					withColor(color: number):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * set other formatting options for the current section
+					 */
+					withFormatting(underline: boolean, bold: boolean, italic: boolean, strikethrough: boolean, magic: boolean):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * set current section's hover event to show text
+					 */
+					withShowTextHover(text: Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * set current section's hover event to show an item
+					 */
+					withShowItemHover(item: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ItemStackHelper):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * set current section's hover event to show an entity
+					 */
+					withShowEntityHover(entity: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper</* minecraft classes, as any, because obfuscation: */ any>):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * custom click event.
+					 */
+					withCustomClickEvent(action: Java.xyz.wagyourtail.jsmacros.core.MethodWrapper<any, any, any>):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * normal click events like: `open_url`, `open_file`, `run_command`, `suggest_command`, `change_page`, and `copy_to_clipboard`
+					 */
+					withClickEvent(action: string, value: string):Java.xyz.wagyourtail.jsmacros.client.api.classes.TextBuilder;
+					
+					/**
+					 * Build to a TextHelper
+					 */
+					build():Java.xyz.wagyourtail.jsmacros.client.api.helpers.TextHelper;
+					
+				}
 				export interface Inventory extends Java.Object {	
 					
 					
@@ -1757,6 +1836,7 @@ declare namespace Java {
 			}
 			export namespace config {
 				export interface BaseProfile extends Java.Object {	
+					profileName: string
 					
 					logError(ex: Java.Throwable):void;
 					getRegistry():Java.xyz.wagyourtail.jsmacros.core.event.BaseEventRegistry;
