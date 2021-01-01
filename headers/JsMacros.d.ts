@@ -118,7 +118,7 @@ declare namespace Events {
 	}
 
 	export interface Damage extends BaseEvent {		
-		readonly attacker: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<>
+		readonly attacker: Java.xyz.wagyourtail.jsmacros.client.api.helpers.EntityHelper<any>
 		readonly source: string
 		readonly health: number
 		readonly change: number
@@ -173,7 +173,7 @@ declare namespace Events {
 	}
 
 	export interface JoinServer extends BaseEvent {		
-		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper<>
+		readonly player: Java.xyz.wagyourtail.jsmacros.client.api.helpers.ClientPlayerEntityHelper</* minecraft classes, as any, because obfuscation: */ any>
 		readonly address: string
 		
 		toString():string;
