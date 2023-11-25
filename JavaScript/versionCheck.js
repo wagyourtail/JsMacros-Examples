@@ -34,7 +34,7 @@ function createOutdatedScreen(text1, text2, tcolor, currentVersion, newVersion, 
                     Hud.openScreen(null);
                 }));
                 scr.addButton(Math.floor(w / 2 - 110), Math.floor(h / 2 + 20), 100, 20, "Download", JavaWrapper.methodToJava(() => {
-                    JsMacros.openUrl(url);
+                    Utils.openUrl(url);
                 }));
 
             }));
