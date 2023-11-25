@@ -15,6 +15,8 @@ function createOutdatedScreen(text1, text2, tcolor, currentVersion, newVersion, 
         .withFormatting(false, true, false, false, false)
         .withCustomClickEvent(JavaWrapper.methodToJava(() => {
             screen.setOnInit(JavaWrapper.methodToJava((scr) => {
+                World.playSound("ui.button.click", 1, 1);
+
                 const w = scr.getWidth();
                 const h = scr.getHeight();
 
@@ -50,7 +52,6 @@ function createOutdatedScreen(text1, text2, tcolor, currentVersion, newVersion, 
 
 }
 
-
 while (Hud.getOpenScreen() != null) Time.sleep(100); //sleeps java thread running this script for 100ms
 
 const FabricLoader = Java.type("net.fabricmc.loader.api.FabricLoader");
@@ -71,12 +72,15 @@ if (versionString.includes("-") && data.length >= 3) {
     version = versionString;
 }
 
-let branches = JSON.parse(Request.get(`https://api.github.com/repos/wagyourtail/JsMacros/branches`).text());
+let stringsToCheck = [version, Client.mcVersion(), Client.getModLoader()];
+
+
+let branches = JSON.parse(getResText(`https://api.github.com/repos/wagyourtail/JsMacros/branches`));
 
 branch = branches.find(branch => branch.name.includes(`/${Client.mcVersion()}`))?.name ?? "main";
 
 if (beta) {
-    let workflow_runs = JSON.parse(Request.get(`https://api.github.com/repos/wagyourtail/JsMacros/actions/workflows/betabuild.yml/runs`).text()).workflow_runs
+    let workflow_runs = JSON.parse(getResText(`https://api.github.com/repos/wagyourtail/JsMacros/actions/workflows/betabuild.yml/runs`)).workflow_runs
     let run = workflow_runs.shift()
 
     while (run && run.head_branch != branch) run = workflow_runs.shift();
@@ -90,11 +94,50 @@ if (beta) {
     }
 
 } else {
-    let gitVer = JSON.parse(Request.get(`https://api.github.com/repos/wagyourtail/JsMacros/releases/latest`).text());
-    if (gitVer.tag_name != version) {
+    let gitVer = JSON.parse(getResText(`https://api.github.com/repos/wagyourtail/JsMacros/releases/latest`));
+    let asset_avilable = gitVer.assets.find(asset => stringsToCheck.some(str => asset.name.includes(str)));
+
+    if (gitVer.tag_name != version && asset_avilable) {
         createOutdatedScreen(`Update version ${gitVer.tag_name} avilable!`, `Click here to download update.`, textcolorno, version, gitVer.tag_name, branch, "https://github.com/wagyourtail/JsMacros/releases/latest");
     }
     else {
         createOutdatedScreen(`No update!`, `Click here to open the GUI.`, textcolorno, version, gitVer.tag_name, branch, "https://github.com/wagyourtail/JsMacros/releases/latest");
     }
+}
+
+function getResText(url) {
+    try {
+        const response = Request.get(url);
+        return response.text();
+    } catch (err) {
+        if (err.toString().includes("FileNotFoundException")) {
+            printResponseCode(url, "404");
+        } else if (err.toString().includes(" 403 ")) {
+            printResponseCode(url, "403 API rate limit exceeded");
+        } else {
+            throw err;
+        }
+    }
+}
+
+function getUrlText(url) {
+    let parts = url.split('/', 4);
+    let trimmedUrl = parts.length < 4 ? url : parts.slice(0, 3).join('/') + "/...";
+    let text = Chat.createTextBuilder().append(trimmedUrl)
+        .withColor(0xb)
+        .withFormatting(false, true, false, false, false)
+        .withShowTextHover(Chat.createTextBuilder().append(url).withColor(0xb).build());
+
+    return text.build();
+}
+
+function printResponseCode(url, message) {
+    Chat.getLogger().info(`URL: ${url}`);
+    Chat.log(Chat.createTextBuilder().append(`URL: `).withColor(0x6).append(getUrlText(url)).build());
+    throw new ResponseCode(message);
+}
+
+function ResponseCode(responseCode) {
+    this.name = "ResponseCode";
+    this.message = `${responseCode}`;
 }
